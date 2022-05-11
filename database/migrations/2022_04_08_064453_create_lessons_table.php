@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateLessonsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::dropIfExists('lessons');
+        Schema::create('lessons', function (Blueprint $table) {
+            $table->integer('lesson_id')->autoIncrement();
+            $table->string('lesson_name');
+            $table->string('lesson_file');
+            $table->integer('course_id');
+            $table->integer('section_id');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('lessons');
+    }
+}
