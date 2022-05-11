@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Typing App | Users Management',
+            'title' => 'Skillful Typing | Users Management',
             'users' => User::all(),
             'class' => Group::all(),
             'class_update' => Group::all(),

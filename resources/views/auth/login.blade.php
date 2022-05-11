@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Typing App | Login</title>
+  <title>Skillful App | Login</title>
 
    <!-- Google Font: Source Sans Pro -->
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,7 +25,7 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card mt-5 shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5 bg-dark rounded">
-                <h3 class="title mb-5 text-center">Typing App</h3>
+                <h3 class="title mb-5 text-center">Skillful App</h3>
                 <form action="/login/post" method="POST">
                     @csrf
                     <div class="form-outline mb-4">

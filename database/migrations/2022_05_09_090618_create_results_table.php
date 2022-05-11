@@ -16,9 +16,10 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id('result_id')->autoIncrement();
             $table->integer('user_id');
-            $table->integer('course_id');
-            $table->integer('section_id');
-            $table->string('lessons');
+            $table->integer('lesson_id');
+            $table->string('wpm');
+            $table->string('accuracy');
+            $table->string('overall_rating');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

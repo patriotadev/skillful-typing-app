@@ -13,7 +13,7 @@ class CourseController extends Controller
     {
         //
         $data = [
-            'title' => 'Typing App | Lesson Editor - Courses',
+            'title' => 'Skillful Typing | Lesson Editor - Courses',
             'courses' => Course::all()
         ];
 
@@ -24,7 +24,7 @@ class CourseController extends Controller
     {
         //
         $data = [
-            'title' => 'Typing App | Lesson Editor - Sections',
+            'title' => 'Skillful Typing | Lesson Editor - Sections',
             'course_id' => $id,
             'sections' => Section::where('course_id', $id)->get()
         ];

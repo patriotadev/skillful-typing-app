@@ -94,7 +94,6 @@
                 console.log(lessonText[i] + ' - ' + inputArray[i])
                 if (lessonText[i] == inputArray[i]) {
                     console.log("Green!")
-                  
                     $(`#text${i}`).css("background-color", "transparent");
                     $(`#text${i}`).css("color", "green");
                 } else {
@@ -128,7 +127,6 @@
 </script>
     
 @endsection
-
 
 <style>
     input[type="text"] {

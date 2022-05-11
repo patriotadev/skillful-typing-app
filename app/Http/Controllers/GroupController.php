@@ -14,7 +14,7 @@ class GroupController extends Controller
         //
 
         $data = [
-            'title' => 'Typing App | Student Static - Class',
+            'title' => 'Skillful Typing | Student Static - Class',
             'class' => Group::all(),
             'courses' => Course::all()
         ];
@@ -25,7 +25,7 @@ class GroupController extends Controller
     public function view($id)
     {
         $data = [
-            'title' => 'Typing App | Student Static - Students',
+            'title' => 'Skillful Typing | Student Static - Students',
             'students' => User::where(['roles' => 'Student', 'class' => $id])->get()
         ];
 

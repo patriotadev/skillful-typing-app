@@ -35,7 +35,7 @@ class LessonController extends Controller
         $lesson_name = Lesson::where('lesson_id', $lesson_id)->pluck('lesson_name')->first();
         $lesson_id = Lesson::where('lesson_id', $lesson_id)->pluck('lesson_id')->first();
         $data = [
-            'title' => 'Typing App | Lesson Editor - Lessons',
+            'title' => 'Skillful Typing | Lesson Editor - Lessons',
             'text' => Storage::disk('local')->get('public/' . $lesson_file_name),
             'lesson_name' => $lesson_name,
             'lesson_id' => $lesson_id,
@@ -74,7 +74,7 @@ class LessonController extends Controller
         $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
 
         $data = [
-            'title' => 'Typing App | Current Lessons',
+            'title' => 'Skillful Typing | Current Lessons',
             'class' => $class,
             'courses' => $courses->get(),
             'sections' => $sections->get(),
@@ -93,7 +93,7 @@ class LessonController extends Controller
         $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
 
         $data = [
-            'title' => 'Typing App | Current Test',
+            'title' => 'Skillful Typing | Current Test',
             'class' => $class,
             'courses' => $courses->get(),
             'sections' => $sections->get(),
@@ -106,7 +106,7 @@ class LessonController extends Controller
     public function getStudentLessonStart()
     {
         $data = [
-            'title' => 'Typing App | Current Lesson'
+            'title' => 'Skillful Typing | Current Lesson'
         ];
 
         return view('student.lessons_start', $data);

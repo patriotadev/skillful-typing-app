@@ -32,7 +32,7 @@
                     <div class="col">
                         <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Courses</label>
-                            <select class="form-control" id="roles" name="roles" required>
+                            <select class="form-control" id="roles" name="course" required>
                                 <option value="">-- Courses --</option>
                                 @foreach ($courses as $course)
                                     <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
@@ -43,7 +43,7 @@
                     <div class="col">
                         <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Sections</label>
-                            <select class="form-control" id="roles" name="roles" required>
+                            <select class="form-control" id="roles" name="section" required>
                                 <option value="">-- Sections --</option>
                                 @foreach ($sections as $section)    
                                     <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
@@ -57,7 +57,7 @@
                         <label for="" class="mt-2">Lessons</label>
                         @foreach ($lessons as $lesson) 
                         <div class="form-check">
-                          <input id="id" class="form-check-input" name="assigned_courses[]" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
+                          <input id="id" class="form-check-input" name="lessons[]" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
                           <label class="form-check-label" for="flexCheckDefault">
                             {{ $lesson->lesson_name }}
                           </label>

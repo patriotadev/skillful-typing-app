@@ -13,7 +13,7 @@ class SectionController extends Controller
     public function view($course_id, $section_id)
     {
         $data = [
-            'title' => 'Typing App | Lesson Editor - Lessons',
+            'title' => 'Skillful Typing | Lesson Editor - Lessons',
             'course_id' => $course_id,
             'section_id' => $section_id,
             'lessons' => Lesson::where(['course_id' => $course_id, 'section_id' => $section_id])->get()
