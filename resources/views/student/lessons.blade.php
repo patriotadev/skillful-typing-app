@@ -22,9 +22,11 @@
       <div class="row">
         <div class="col-12">
        <div class="card">
-         <div class="card-header">
+        <form action="/student/lessons/start" method="post">
+        @csrf
+        <div class="card-header">
            <h3 class="card-title">Current Lessons</h3>
-         </div>
+        </div>
          <!-- /.card-header -->
          <div class="card-body">
             <div class="container">
@@ -57,7 +59,7 @@
                         <label for="" class="mt-2">Lessons</label>
                         @foreach ($lessons as $lesson) 
                         <div class="form-check">
-                          <input id="id" class="form-check-input" name="lessons[]" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
+                          <input id="id" class="form-check-input" name="lesson" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
                           <label class="form-check-label" for="flexCheckDefault">
                             {{ $lesson->lesson_name }}
                           </label>
@@ -69,15 +71,16 @@
                     </div> --}}
                 </div>
             </div>
-         </div>
+        </div>
          <!-- /.card-body -->
-         <div class="card-footer">
+        <div class="card-footer">
              <div class="d-flex justify-content-center">
                  {{-- <button class="btn btn-primary">Start</button> --}}
-                 <a href="/student/lessons/start" class="btn btn-primary">Start</a>
+                 <button type="submit" class="btn btn-primary">Start</button>
              </div>
          </div>
-       </div>
+        </form>
+        </div>
        <!-- /.card -->
       </div>
       </div>

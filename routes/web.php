@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CurrentLessonController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SectionController;
@@ -54,6 +55,7 @@ Route::post('/admin/users/add', [UserController::class, 'create']);
 Route::post('/admin/users/update', [UserController::class, 'update']);
 Route::get('/admin/users/delete/{id}', [UserController::class, 'delete']);
 
-Route::get('/student/lessons', [LessonController::class, 'getStudentCurrentLesson']);
-Route::get('/student/lessons/start', [LessonController::class, 'getStudentLessonStart']);
-Route::get('/student/tests', [LessonController::class, 'getStudentCurrentTest']);
+Route::get('/student/lessons', [CurrentLessonController::class, 'getStudentCurrentLesson']);
+Route::get('/student/lessons/start', [CurrentLessonController::class, 'getStudentLessonStart']);
+Route::post('/student/lessons/start', [CurrentLessonController::class, 'postStudentCurrentLessonStart']);
+Route::get('/student/tests', [CurrentLessonController::class, 'getStudentCurrentTest']);

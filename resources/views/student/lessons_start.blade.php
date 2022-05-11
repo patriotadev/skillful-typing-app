@@ -39,8 +39,8 @@
          <div class="card-body">
             <div class="container d-flex justify-content-center mb-5">
                 <div class="row">
-                    @for ($i = 0; $i < 10; $i++)
-                        <h1 class="lesson-text mr-3" id="text{{$i}}">Lorem </h1>  
+                    @for ($i = 0; $i < count($lesson_text); $i++)
+                        <h1 class="lesson-text mr-3" id="text{{$i}}">{{$lesson_text[$i]}} </h1>  
                     @endfor
                 </div>
             </div>
