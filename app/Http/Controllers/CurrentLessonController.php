@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CurrentLesson;
 use App\Models\Section;
 use App\Models\Lesson;
+use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,15 +22,45 @@ class CurrentLessonController extends Controller
         $sections = Section::whereIn('course_id', $assigned_courses);
         $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
 
+        // Get user lesson history
+
+        $userResult = Result::where('user_id', session('user_id'));
+
+        if ($userResult->count() > 0) {
+            $last_lesson_id = $userResult->latest()->first()->lesson_id;
+            $last_section_id = Lesson::where('lesson_id', $last_lesson_id)->first()->section_id;
+            $last_course_id = Lesson::where('lesson_id', $last_lesson_id)->first()->course_id;
+            $all_finished_lesson = Result::where('user_id', session('user_id'))->select('lesson_id')->get();
+
+            $data = [
+                'title' => 'Skillful Typing | Current Lessons',
+                'class' => $class,
+                'courses' => $courses->get(),
+                'sections' => $sections->get(),
+                'lessons' => $lessons,
+                'last_lesson_id' => $last_lesson_id,
+                'last_section_id' => $last_section_id,
+                'last_course_id' => $last_course_id,
+                'all_finished_lesson' => $all_finished_lesson
+            ];
+            return view('student.lessons', $data);
+            // return $data;
+        }
+
         $data = [
             'title' => 'Skillful Typing | Current Lessons',
             'class' => $class,
             'courses' => $courses->get(),
             'sections' => $sections->get(),
-            'lessons' => $lessons
+            'lessons' => $lessons,
+            'last_lesson_id' => 0,
+            'last_section_id' => 0,
+            'last_course_id' => 0,
         ];
-
         return view('student.lessons', $data);
+
+
+        // return $data;
     }
 
     public function getStudentCurrentTest()
@@ -40,6 +71,8 @@ class CurrentLessonController extends Controller
         $sections = Section::whereIn('course_id', $assigned_courses);
         $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
 
+
+
         $data = [
             'title' => 'Skillful Typing | Current Test',
             'class' => $class,
@@ -49,15 +82,6 @@ class CurrentLessonController extends Controller
         ];
 
         return view('student.test', $data);
-    }
-
-    public function getStudentLessonStart()
-    {
-        $data = [
-            'title' => 'Skillful Typing | Current Lesson'
-        ];
-
-        return view('student.lessons_start', $data);
     }
 
     public function postStudentCurrentLessonStart(Request $request)
@@ -77,5 +101,25 @@ class CurrentLessonController extends Controller
         ];
 
         return view('student.lessons_start', $data);
+    }
+
+    public function postStudentLessonResult(Request $request)
+    {
+        $data = [
+            'user_id' => session('user_id'),
+            'lesson_id' => $request->lesson_id,
+            'wpm' => $request->wpm,
+            'accuracy' => $request->accuracy,
+            'overall_rating' => $request->overall_rating,
+            'type' => 'Lesson'
+        ];
+
+        $existResultData = Result::where(['user_id' => session('user_id'), 'lesson_id' => $request->lesson_id])->first();
+
+        if ($existResultData) {
+            Result::where(['user_id' => session('user_id'), 'lesson_id' => $request->lesson_id])->update($data);
+        } else {
+            Result::create($data);
+        }
     }
 }

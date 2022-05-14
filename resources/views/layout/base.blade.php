@@ -20,6 +20,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin_lte/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+  <link rel="shortcut icon" href="{{ asset('images/typing.png') }}"/>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -85,9 +87,15 @@
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ asset('admin_lte/plugins/chart.js/Chart.min.js') }} "></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{ asset('admin_lte/dist/js/demo.js') }} "></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
 <script src="{{ asset('admin_lte/dist/js/pages/dashboard3.js') }} "></script>
+
+<script>
+  // Current Time
+  $time = new Date().toLocaleDateString();
+  $('#current-time').text($time)
+
+</script>
+
 </body>
 </html>

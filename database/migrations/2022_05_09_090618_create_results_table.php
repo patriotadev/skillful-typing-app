@@ -20,6 +20,7 @@ class CreateResultsTable extends Migration
             $table->string('wpm');
             $table->string('accuracy');
             $table->string('overall_rating');
+            $table->string('type');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

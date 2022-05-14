@@ -38,6 +38,7 @@
          <!-- /.card-header -->
          <div class="card-body">
             <div class="container d-flex justify-content-center mb-5">
+                <input type="hidden" id="lesson_id" value="{{ $lesson_id }}">
                 <div class="row">
                     @for ($i = 0; $i < count($lesson_text); $i++)
                         <h1 class="lesson-text mr-3" id="text{{$i}}">{{$lesson_text[$i]}} </h1>  
@@ -77,7 +78,7 @@
 
 <script type="text/javascript">
 
-    let lessonText = $('.lesson-text').text().split(" ")
+    lessonText = $('.lesson-text').text().split(" ")
     lessonText.splice(lessonText.length - 1, 1)
     console.log(lessonText)
 
@@ -86,6 +87,8 @@
         var code = e.key;
         if(code==="Enter") e.preventDefault();
         if(code===" ") {
+        correctValue = []
+        inCorrectValue = []
         textValue = $(this).val()
         inputArray.push(textValue.substring(0, textValue.length - 1))
         console.log(inputArray)
@@ -94,30 +97,138 @@
                 console.log(lessonText[i] + ' - ' + inputArray[i])
                 if (lessonText[i] == inputArray[i]) {
                     console.log("Green!")
+                    correctValue.push([lessonText[i]])
                     $(`#text${i}`).css("background-color", "transparent");
                     $(`#text${i}`).css("color", "green");
                 } else {
                     console.log("Red!")
+                    inCorrectValue.push([lessonText[i]])
                     $(`#text${i}`).css("background-color", "transparent");
                     $(`#text${i}`).css("color", "red");
                 }
             } 
+        console.log('total : ' + lessonText.length)
+        console.log('correct : ' + correctValue.length)
+        console.log('incorrect : ' + inCorrectValue.length)
+        totalWordType = correctValue.length + inCorrectValue.length
+        if (lessonText.length === totalWordType) {
+            // window.location = '/student/lessons'
+            timeToSecond = $('.countdown').html()
+            timeArray = timeToSecond.split(":")
+            getMinutes = parseInt(timeArray[0]);
+            getSeconds = parseInt(timeArray[1]);
+
+            minutesToSeconds = (getMinutes * 60) + getSeconds
+            secondsToMinutes = minutesToSeconds / 60;
+            wpm = totalWordType / secondsToMinutes
+
+            accuracy = (correctValue.length / totalWordType) * 100
+
+            console.log(`${wpm} WPM`)
+            console.log(`Accuracy : ${accuracy}%`)
+
+
+            $.ajax({
+            url: '/student/lessons/result',
+            data: {
+                lesson_id: $('#lesson_id').val(),
+                wpm: wpm,
+                accuracy: accuracy,
+                overall_rating: '-'
+            },
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend : () => {
+                Swal.showLoading()
+            },
+            success : () => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Result',
+                    text: `${wpm} WPM - ${accuracy}% Accuracy`,
+                }).then(function() {
+                    window.location = '/student/lessons'
+                });
+            },
+            error: (error) => {
+                console.log(error)
+                window.location = '/student/lessons'
+            }
+            })
+
+
+
+
+
+
+
+
+
+
+        }
         $(this).val("")
         } else {
             console.log($('#input-text').val())
         }
     });
 
-       let timer2 = "5:01";
+       let timer2 = "0:00";
        let interval = setInterval(function() {
     
        let timer = timer2.split(':');
        let minutes = parseInt(timer[0], 10);
        let seconds = parseInt(timer[1], 10);
-        --seconds;
-        minutes = (seconds < 0) ? --minutes : minutes;
-        if (minutes < 0) clearInterval(interval);
-        seconds = (seconds < 0) ? 59 : seconds;
+        ++seconds;
+        minutes = (seconds > 59) ? ++minutes : minutes;
+        // if (minutes < 0) clearInterval(interval);
+
+        if (minutes == 2) {
+            console.log("Waktu Habis!!")
+
+            console.log(this.correctValue)
+            clearInterval(interval);
+
+            // AJAX
+            // $.ajax({
+            // url: '/student/lessons/result',
+            // data: {
+            //     lesson_id: $('#lesson_id').val(),
+            //     wpm: '100 WPM',
+            //     accuracy: '80%',
+            //     overall_rating: '-'
+            // },
+            // method: 'POST',
+            // headers: {
+            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            // },
+            // beforeSend : () => {
+            //     Swal.showLoading()
+            // },
+            // success : () => {
+            //     Swal.fire({
+            //         icon: 'success',
+            //         title: 'Result',
+            //         text: '100 WPM - 80% Accuracy',
+            //     }).then(function() {
+            //         window.location = '/student/lessons'
+            //     });
+            // },
+            // error: (error) => {
+            //     console.log(error)
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Result',
+            //         text: '100 WPM - 80% Accuracy',
+            //     }).then(function() {
+            //         window.location = '/student/lessons'
+            //     });
+            // }
+            // })
+        }
+
+        seconds = (seconds > 59) ? 00 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;
         
         $('.countdown').html(minutes + ':' + seconds);

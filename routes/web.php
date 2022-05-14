@@ -6,8 +6,13 @@ use App\Http\Controllers\CurrentLessonController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentStaticController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Authentications;
+use App\Http\Middleware\Student;
 use App\Models\Course;
+use App\Models\CurrentLesson;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,34 +33,47 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login/post', [AuthController::class, 'login']);
 
-Route::get('/admin/courses', [CourseController::class, 'index']);
-Route::get('/admin/courses/{id}/sections', [CourseController::class, 'view']);
-Route::post('/admin/courses/add', [CourseController::class, 'create']);
-Route::post('/admin/courses/update', [CourseController::class, 'update']);
-Route::get('/admin/courses/delete/{id}', [CourseController::class, 'delete']);
+Route::middleware([Authentications::class])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/admin/courses/{course_id}/sections/{section_id}/lessons', [SectionController::class, 'view']);
-Route::post('/admin/sections/add', [SectionController::class, 'create']);
-Route::post('/admin/sections/update', [SectionController::class, 'update']);
-Route::get('/admin/sections/delete/{id}', [SectionController::class, 'delete']);
 
-Route::post('/admin/lessons/add', [LessonController::class, 'create']);
-Route::post('/admin/lessons/update', [LessonController::class, 'update']);
-Route::get('/admin/courses/{course_id}/sections/{section_id}/lessons/{lesson_id}', [LessonController::class, 'view']);
-Route::get('/admin/lessons/delete/{id}', [LessonController::class, 'delete']);
+    Route::middleware([Admin::class])->group(function () {
+        Route::get('/admin/courses', [CourseController::class, 'index']);
+        Route::get('/admin/courses/{id}/sections', [CourseController::class, 'view']);
+        Route::post('/admin/courses/add', [CourseController::class, 'create']);
+        Route::post('/admin/courses/update', [CourseController::class, 'update']);
+        Route::get('/admin/courses/delete/{id}', [CourseController::class, 'delete']);
 
-Route::get('/admin/class', [GroupController::class, 'index']);
-Route::get('/admin/class/{id}/students', [GroupController::class, 'view']);
-Route::post('/admin/class/add', [GroupController::class, 'create']);
-Route::post('/admin/class/update', [GroupController::class, 'update']);
-Route::get('/admin/class/delete/{id}', [GroupController::class, 'delete']);
+        Route::get('/admin/courses/{course_id}/sections/{section_id}/lessons', [SectionController::class, 'view']);
+        Route::post('/admin/sections/add', [SectionController::class, 'create']);
+        Route::post('/admin/sections/update', [SectionController::class, 'update']);
+        Route::get('/admin/sections/delete/{id}', [SectionController::class, 'delete']);
 
-Route::get('/admin/users', [UserController::class, 'index']);
-Route::post('/admin/users/add', [UserController::class, 'create']);
-Route::post('/admin/users/update', [UserController::class, 'update']);
-Route::get('/admin/users/delete/{id}', [UserController::class, 'delete']);
+        Route::post('/admin/lessons/add', [LessonController::class, 'create']);
+        Route::post('/admin/lessons/update', [LessonController::class, 'update']);
+        Route::get('/admin/courses/{course_id}/sections/{section_id}/lessons/{lesson_id}', [LessonController::class, 'view']);
+        Route::get('/admin/lessons/delete/{id}', [LessonController::class, 'delete']);
 
-Route::get('/student/lessons', [CurrentLessonController::class, 'getStudentCurrentLesson']);
-Route::get('/student/lessons/start', [CurrentLessonController::class, 'getStudentLessonStart']);
-Route::post('/student/lessons/start', [CurrentLessonController::class, 'postStudentCurrentLessonStart']);
-Route::get('/student/tests', [CurrentLessonController::class, 'getStudentCurrentTest']);
+        Route::get('/admin/class', [GroupController::class, 'index']);
+        Route::get('/admin/class/{id}/students', [GroupController::class, 'view']);
+        Route::post('/admin/class/add', [GroupController::class, 'create']);
+        Route::post('/admin/class/update', [GroupController::class, 'update']);
+        Route::get('/admin/class/delete/{id}', [GroupController::class, 'delete']);
+
+        Route::get('/admin/users', [UserController::class, 'index']);
+        Route::post('/admin/users/add', [UserController::class, 'create']);
+        Route::post('/admin/users/update', [UserController::class, 'update']);
+        Route::get('/admin/users/delete/{id}', [UserController::class, 'delete']);
+    });
+
+    Route::middleware([Student::class])->group(function () {
+        Route::get('/student/lessons', [CurrentLessonController::class, 'getStudentCurrentLesson']);
+        Route::get('/student/lessons/start', [CurrentLessonController::class, 'getStudentLessonStart']);
+        Route::post('/student/lessons/start', [CurrentLessonController::class, 'postStudentCurrentLessonStart']);
+        Route::get('/student/tests', [CurrentLessonController::class, 'getStudentCurrentTest']);
+        Route::post('/student/lessons/result', [CurrentLessonController::class, 'postStudentLessonResult']);
+
+        Route::get('/student/statics', [StudentStaticController::class, 'index']);
+        Route::get('/student/overall', [StudentStaticController::class, 'overall_result']);
+    });
+});

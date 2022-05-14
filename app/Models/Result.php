@@ -14,5 +14,5 @@ class Result extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['user_id', 'course_id', 'section_id', 'lessons'];
+    protected $fillable = ['user_id', 'lesson_id', 'wpm', 'accuracy', 'overall_rating', 'type'];
 }
