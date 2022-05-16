@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-12">
        <div class="card">
-        <form action="/student/lessons/start" method="post">
+        <form action="/lessons/start" method="post">
         @csrf
         <div class="card-header">
            <h3 class="card-title">Current Lessons</h3>
@@ -36,7 +36,7 @@
                             <label for="exampleFormControlSelect1">Courses</label>
                             <select class="form-control" id="course" name="course" required>
                                 @foreach ($courses as $course)
-                                    <option course_id={{ $course->course_id }} {{ $course->course_id == $last_course_id ? 'selected' : '' }} value="{{ $course->course_id }}">{{ $course->course_name }}</option>
+                                    <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,14 +46,14 @@
                             <label for="exampleFormControlSelect1">Sections</label>
                             <select class="form-control" id="section" name="section" required>
                                 @foreach ($sections as $section)    
-                                    <option course_id="{{ $section->course_id }}" {{ $section->section_id == $last_section_id ? 'selected' : '' }} value="{{ $section->section_id }}">{{ $section->section_name }}</option>
+                                    <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    {{-- <div class="col">
                         <label for="" class="mt-2">Finished Lessons</label>
                         @isset($all_finished_lesson)  
                           @foreach ($all_finished_lesson as $finished)   
@@ -69,7 +69,7 @@
                             @endforeach
                           @endforeach
                         @endisset
-                    </div>
+                    </div> --}}
                     <div class="col">
                       <label for="" class="mt-2">Select Lesson</label>
                       @foreach ($lessons as $lesson)
@@ -102,25 +102,4 @@
   </div>
 <!-- /.content -->
 
-@endsection
-
-
-@section('js')
-    <script>
-      $(document).ready(() => {
-        course_id = null
-        section_id = null
-
-        $('#course').on('change', () => {
-          this.course_id = $('#course').val()
-          console.log(this.course_id)
-        })
-
-        $('#section').on('change', () => {
-          this.section_id = $('#section').val()
-          console.log(this.section_id)
-        })
-
-      });
-    </script>
 @endsection

@@ -13,7 +13,7 @@
             @csrf
             <div class="form-group">
               <label for="exampleInputEmail1">Class Name</label>
-              <input type="text" class="form-control" name="class_name" placeholder="Enter class name">
+              <input type="text" class="form-control" name="class_name" placeholder="Enter class name" required>
               <label for="" class="mt-2">Assigned Class</label>
               @foreach ($courses as $course)
               <div class="form-check">
@@ -49,7 +49,7 @@
             @csrf
             <div class="form-group">
               <label for="exampleInputEmail1">Class Name</label>
-              <input id="class_name" type="text" class="form-control" name="class_name" placeholder="Enter class name">
+              <input id="class_name" type="text" class="form-control" name="class_name" placeholder="Enter class name" required>
               <input id="class_id" type="hidden" class="form-control" name="class_id">
               <label for="" class="mt-2">Assigned Class</label>
               @foreach ($courses as $course)

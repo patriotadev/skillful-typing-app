@@ -23,6 +23,16 @@
         <div class="container py-5 mt-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              @if (Session::has('fail_user'))       
+              <div class="alert alert-danger" role="alert">
+                {{ session('fail_user') }}
+              </div>
+              @endif
+              @if (Session::has('fail_pass'))       
+              <div class="alert alert-danger" role="alert">
+                {{ session('fail_pass') }}
+              </div>
+              @endif
               <div class="card mt-5 shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5 bg-dark rounded">
                 <div class="logo d-flex justify-content-center mb-3">
@@ -33,13 +43,26 @@
                     @csrf
                     <div class="form-outline mb-4">
                       <label class="form-label">Username</label>
-                      <input type="text" name="username" class="form-control form-control-lg" />
+                      <input type="text" name="username" class="@error ('username') is-invalid @enderror form-control form-control-lg" />
+                      @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <div class="form-outline mb-4">
                       <label class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control form-control-lg" />
+                      <input type="password" name="password" class="@error ('password') is-invalid @enderror form-control form-control-lg" />
+                      @error('password')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                    <div class="d-flex justify-content-end mt-3">
+                      <a href="/">Login as Guest &rarr;</a>
+                    </div>
                 </form>
                 </div>
               </div>
@@ -58,6 +81,25 @@
 
 <!-- AdminLTE -->
 <script src="{{ asset('admin_lte/dist/js/adminlte.js') }}"></script>
+
+<script>
+  const Toast = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  width:350,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+  })
+  function msg(icon,title){
+  Toast.fire({ icon, title })
+  }
+</script>
+
 </body>
 </html>
 

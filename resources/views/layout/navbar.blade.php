@@ -15,7 +15,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-
+      @if (session('hasLogin'))
       <li class="nav-item d-none d-sm-inline-block">
         <a id="current-time" class="nav-link">Header</a>
       </li>
@@ -25,6 +25,32 @@
           Logout
         </a>
       </li>
+      @else
+      <li class="nav-item">
+        <a href="/login" class="nav-link">
+          <i class="fa fa-external-link"></i>
+          Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link">
+          <i class="fa fa-external-link"></i>
+          Register as a teacher
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link">
+          <i class="fa fa-external-link"></i>
+          About Us
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link">
+          <i class="fa fa-external-link"></i>
+          Login
+        </a>
+      </li>
+      @endif
     </ul>
   </nav>
   <!-- /.navbar -->

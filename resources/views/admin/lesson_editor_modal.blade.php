@@ -13,7 +13,7 @@
             @csrf
             <div class="form-group">
               <label for="exampleInputEmail1">Course Name</label>
-              <input type="text" class="form-control" name="course_name" placeholder="Enter course name">
+              <input type="text" class="form-control" name="course_name" placeholder="Enter course name" required>
             </div>
           </div>
           <div class="modal-footer">
@@ -40,7 +40,7 @@
             @csrf
             <div class="form-group">
               <label for="exampleInputEmail1">Course Name</label>
-              <input id="course_name" type="text" class="form-control" name="course_name" placeholder="Enter course name">
+              <input id="course_name" type="text" class="form-control" name="course_name" placeholder="Enter course name" required>
               <input id="course_id" type="hidden" class="form-control" name="course_id" placeholder="Enter course Id">
             </div>
           </div>
@@ -68,7 +68,7 @@
           @csrf
           <div class="form-group">
             <label for="exampleInputEmail1">Section Name</label>
-            <input type="text" class="form-control" name="section_name" placeholder="Enter section name">
+            <input type="text" class="form-control" name="section_name" placeholder="Enter section name" required>
             <input type="hidden" class="form-control" name="course_id" value="{{ isset($course_id) ? $course_id : '' }}">
           </div>
         </div>
@@ -96,7 +96,7 @@
           @csrf
           <div class="form-group">
             <label for="exampleInputEmail1">Section Name</label>
-            <input id="section_name" type="text" class="form-control" name="section_name" placeholder="Enter section name">
+            <input id="section_name" type="text" class="form-control" name="section_name" placeholder="Enter section name" required>
             <input id="section_id" type="hidden" class="form-control" name="section_id">
           </div>
         </div>
@@ -124,10 +124,10 @@
           @csrf
           <div class="form-group">
             <label for="exampleInputEmail1">Lesson Name</label>
-            <input type="text" class="form-control" name="lesson_name" placeholder="Enter Lesson name">
+            <input type="text" class="form-control" name="lesson_name" placeholder="Enter Lesson name" required>
             <input type="hidden" class="form-control" name="course_id" value="{{ isset($course_id) ? $course_id : '' }}">
             <input type="hidden" class="form-control" name="section_id" value="{{ isset($section_id) ? $section_id : '' }}">
-            <input type="file" class="mt-3" name="lesson_file" placeholder="Choose Lesson File">
+            <input type="file" class="mt-3" name="lesson_file" placeholder="Choose Lesson File" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -154,7 +154,7 @@
           @csrf
           <div class="form-group">
             <label for="exampleInputEmail1">Lesson Name</label>
-            <input id="lesson_name" type="text" class="form-control" name="lesson_name" placeholder="Enter section name">
+            <input id="lesson_name" type="text" class="form-control" name="lesson_name" placeholder="Enter section name" required>
             {{-- <input id="lesson_file" class="mt-3" type="file" name="lesson_file"> --}}
             <input id="lesson_id" type="hidden" class="form-control" name="lesson_id">
             <textarea class="mt-3" name="lesson_text" id="lesson_text" cols="62" rows="10">{{isset($text) ? $text : ''}}</textarea>

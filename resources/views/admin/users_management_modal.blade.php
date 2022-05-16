@@ -33,9 +33,9 @@
                             <label for="exampleInputEmail1">Major</label>
                             <input type="text" class="form-control mb-2" name="major" placeholder="Enter Major" required>     
                             <label for="exampleInputEmail1">Phone</label>
-                            <input type="text" class="form-control mb-2" name="phone" placeholder="Enter Phone">     
+                            <input type="text" class="form-control mb-2" name="phone" placeholder="Enter Phone" required>     
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="text" class="form-control mb-2" name="email" placeholder="Enter Email">     
+                            <input type="text" class="form-control mb-2" name="email" placeholder="Enter Email" required>     
                         </div>
                     </div>
                     <div class="col">
@@ -44,13 +44,13 @@
                             <input type="text" class="form-control mb-2" name="username" placeholder="Enter Username" required>
                             <label for="exampleInputEmail1">Password</label>
                             <input type="password" class="form-control mb-2" name="password" placeholder="Enter Password" required>
-                            <label for="exampleInputEmail1" class="mt-2">Confirmation Password</label>
-                            <input type="password" class="form-control mb-2" name="conf_password" placeholder="Enter Confirmation" required>
+                            {{-- <label for="exampleInputEmail1" class="mt-2">Confirmation Password</label>
+                            <input type="password" class="form-control mb-2" name="conf_password" placeholder="Enter Confirmation" required> --}}
                             <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Roles</label>
                                 <select class="form-control" name="roles" required>
                                     <option value="">-- Roles --</option>
-                                    <option value="Admin">Admin</option>
+                                    {{-- <option value="Admin">Admin</option> --}}
                                     <option value="Student">Student</option>
                                 </select>
                             </div>
@@ -128,9 +128,9 @@
                             <label for="exampleInputEmail1">Major</label>
                             <input type="text" class="form-control mb-2" id="major" name="major" placeholder="Enter Major" required>     
                             <label for="exampleInputEmail1">Phone</label>
-                            <input type="text" class="form-control mb-2" id="phone" name="phone" placeholder="Enter Phone">     
+                            <input type="text" class="form-control mb-2" id="phone" name="phone" placeholder="Enter Phone" required>     
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="text" class="form-control mb-2" id="email" name="email" placeholder="Enter Email">     
+                            <input type="text" class="form-control mb-2" id="email" name="email" placeholder="Enter Email" required>     
                         </div>
                     </div>
                     <div class="col">
@@ -145,7 +145,7 @@
                                 <label for="exampleFormControlSelect1">Roles</label>
                                 <select class="form-control" id="roles" name="roles" required>
                                     <option value="">-- Roles --</option>
-                                    <option value="Admin">Admin</option>
+                                    {{-- <option value="Admin">Admin</option> --}}
                                     <option value="Student">Student</option>
                                 </select>
                             </div>

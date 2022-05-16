@@ -17,8 +17,19 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('username', $request->username)->first();
 
+        $request->validate(
+            [
+                'username' => 'required',
+                'password' => 'required'
+            ],
+            [
+                'username.required' => 'Please input your username.',
+                'password.required' => 'Please input your password.'
+            ]
+        );
+
+        $user = User::where('username', $request->username)->first();
         // echo ($user);
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
@@ -36,10 +47,12 @@ class AuthController extends Controller
                 return redirect('/student/lessons');
             } else {
                 // Password salah
+                $request->session()->flash('fail_pass', 'Incorrect Password.');
                 return redirect('/login');
             }
         } else {
             // User tidak ditemukan
+            $request->session()->flash('fail_user', 'Username not found.');
             return redirect('/login');
         }
     }

@@ -122,4 +122,35 @@ class CurrentLessonController extends Controller
             Result::create($data);
         }
     }
+
+    public function getHomeCurrentLesson()
+    {
+        $data = [
+            'title' => 'Skillful Typing | Current Lessons',
+            'courses' => Course::all(),
+            'sections' => Section::all(),
+            'lessons' => Lesson::all()
+        ];
+
+        return view('home.lessons', $data);
+
+        // return $data;
+    }
+
+    public function postHomeCurrentLessonStart(Request $request)
+    {
+        $lesson_file_name = Lesson::where('lesson_id', $request->lesson)->pluck('lesson_file')->first();
+        $lesson_text_from_file = Storage::disk('local')->get('public/' . $lesson_file_name);
+
+        $lesson_text_array = explode(' ', $lesson_text_from_file);
+
+        $data = [
+            'title' => 'Skillful Typing | Current Lesson',
+            'lesson_name' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_name')->first(),
+            'lesson_id' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_id')->first(),
+            'lesson_text' => $lesson_text_array
+        ];
+
+        return view('home.lessons_start', $data);
+    }
 }

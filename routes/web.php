@@ -26,9 +26,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CurrentLessonController::class, 'getHomeCurrentLesson']);
+Route::post('/lessons/start', [CurrentLessonController::class, 'postHomeCurrentLessonStart']);
 
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login/post', [AuthController::class, 'login']);
