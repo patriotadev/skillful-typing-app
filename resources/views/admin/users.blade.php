@@ -45,7 +45,7 @@
                <td>{{ $loop->iteration }}</td>
                <td>{{ $user->nim }}</td>
                <td>{{ $user->fullname }}</td>
-               <td>{{ App\Models\Group::where('class_id', $user->class)->first()->class_name }}</td>
+               <td>{{ isset(App\Models\Group::where('class_id', $user->class)->first()->class_name) ? App\Models\Group::where('class_id', $user->class)->first()->class_name : '' }}</td>
                <td>{{ $user->email }}</td>
                <td>{{ $user->level }}</td>
                <td>

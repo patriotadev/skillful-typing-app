@@ -127,6 +127,10 @@
             console.log(`${wpm} WPM`)
             console.log(`Accuracy : ${accuracy}%`)
 
+            totalWords = lessonText.length
+            minutes = secondsToMinutes
+            correctWords = correctValue.length
+            incorrectWords = inCorrectValue.length
 
             $.ajax({
             url: '/student/lessons/result',
@@ -157,16 +161,6 @@
                 window.location = '/student/lessons'
             }
             })
-
-
-
-
-
-
-
-
-
-
         }
         $(this).val("")
         } else {
@@ -190,42 +184,42 @@
             console.log(this.correctValue)
             clearInterval(interval);
 
-            // AJAX
-            // $.ajax({
-            // url: '/student/lessons/result',
-            // data: {
-            //     lesson_id: $('#lesson_id').val(),
-            //     wpm: '100 WPM',
-            //     accuracy: '80%',
-            //     overall_rating: '-'
-            // },
-            // method: 'POST',
-            // headers: {
-            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            // },
-            // beforeSend : () => {
-            //     Swal.showLoading()
-            // },
-            // success : () => {
-            //     Swal.fire({
-            //         icon: 'success',
-            //         title: 'Result',
-            //         text: '100 WPM - 80% Accuracy',
-            //     }).then(function() {
-            //         window.location = '/student/lessons'
-            //     });
-            // },
-            // error: (error) => {
-            //     console.log(error)
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Result',
-            //         text: '100 WPM - 80% Accuracy',
-            //     }).then(function() {
-            //         window.location = '/student/lessons'
-            //     });
-            // }
-            // })
+            AJAX
+            $.ajax({
+            url: '/student/lessons/result',
+            data: {
+                lesson_id: $('#lesson_id').val(),
+                wpm: '100 WPM',
+                accuracy: '80%',
+                overall_rating: '-'
+            },
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend : () => {
+                Swal.showLoading()
+            },
+            success : () => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Result',
+                    text: '100 WPM - 80% Accuracy',
+                }).then(function() {
+                    window.location = '/student/lessons'
+                });
+            },
+            error: (error) => {
+                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Result',
+                    text: '100 WPM - 80% Accuracy',
+                }).then(function() {
+                    window.location = '/student/lessons'
+                });
+            }
+            })
         }
 
         seconds = (seconds > 59) ? 00 : seconds;

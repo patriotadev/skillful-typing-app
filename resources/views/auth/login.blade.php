@@ -18,6 +18,8 @@
    <!-- Theme style -->
    <link rel="stylesheet" href="{{ asset('admin_lte/dist/css/adminlte.min.css') }}">
    <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="shortcut icon" href="{{ asset('images/typing.png') }}"/>
+
 </head>
 <body class="hold-transition login-page">
         <div class="container py-5 mt-5 h-100">
@@ -61,7 +63,7 @@
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                     <div class="d-flex justify-content-end mt-3">
-                      <a href="/">Login as Guest &rarr;</a>
+                      <a href="/">Continue as guest &rarr;</a>
                     </div>
                 </form>
                 </div>

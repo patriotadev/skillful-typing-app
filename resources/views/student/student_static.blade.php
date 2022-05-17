@@ -25,49 +25,65 @@
             <div class="card-header">
                 <h3 class="card-title">Student Statics</h3>
             </div>
-
             <div class="card-body">
+              <form action="/student/statics" method="post">
+                @csrf
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlSelect1">Courses</label>
-                                <select class="form-control" id="course" name="course" required>
-                                    <option value="">Course</option>
-                                </select>
+                          <div class="form-group mt-3">
+                            <label for="exampleFormControlSelect1">Courses</label>
+                            <select class="form-control" id="course" name="course" required>
+                              <option value=""> -- Courses --</option>
+                                @foreach ($courses as $course) 
+                                <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
+                                @endforeach
+                              </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Sections</label>
-                                <select class="form-control" id="course" name="course" required>
-                                    <option value="">Section</option>
+                                <select class="form-control" id="section" name="section" required>
+                                    <option value="">-- Section --</option>
+                                    @foreach ($sections as $section) 
+                                    <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Lessons</label>
-                                <select class="form-control" id="course" name="course" required>
-                                    <option value="">Lesson</option>
+                                <select class="form-control" id="lesson" name="lesson" required>
+                                    <option value="">-- Lesson --</option>
+                                    @foreach ($lessons as $lesson) 
+                                    <option value="{{ $lesson->lesson_id }}">{{ $lesson->lesson_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row ml-2 mt-5">
-                        <div>
-                            <h4>83 WPM - 100% Accuracy</h4>
+                        <div class="col mt-5">
+                          <button type="submit" class="btn btn-info">Search</button>
                         </div>
+                    </div>
+                    @isset($result) 
+                    <div class="row ml-2 mt-5">
+                      <div>
+                        <h4>{{ $result->wpm }} WPM - {{ $result->accuracy }}% Accuracy</h4>
+                      </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col">
-                            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
-                        <div class="col">
-                            <canvas id="pieChart" style="min-height: 250px; height: 200px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
+                      <div class="col">
+                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                      <div class="col">
+                        <canvas id="pieChart" style="min-height: 250px; height: 200px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
                     </div>
+                    @endisset
                 </div>
+              </form>
             </div>
 
             <div class="card-footer d-flex justify-content-end">
@@ -97,7 +113,7 @@
     labels: ["Total Words", "Correct Words", "Incorrect Words", "Minutes"],
     datasets: [{
       label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
+      data: [30, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -169,7 +185,7 @@
   };
   var doughnutPieData = {
     datasets: [{
-      data: [45, 100],
+      data: [<?= isset($result) ? $result->accuracy : 0; ?>, 100],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',

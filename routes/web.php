@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CurrentLessonController::class, 'getHomeCurrentLesson']);
 Route::post('/lessons/start', [CurrentLessonController::class, 'postHomeCurrentLessonStart']);
+Route::get('/register', [UserController::class, 'registerTeacher']);
+Route::post('/register', [UserController::class, 'postRegisterTeacher']);
 
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login/post', [AuthController::class, 'login']);
@@ -74,5 +76,7 @@ Route::middleware([Authentications::class])->group(function () {
 
         Route::get('/student/statics', [StudentStaticController::class, 'index']);
         Route::get('/student/overall', [StudentStaticController::class, 'overall_result']);
+
+        Route::post('/student/statics', [StudentStaticController::class, 'getLessonStaticById']);
     });
 });

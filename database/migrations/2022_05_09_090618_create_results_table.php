@@ -17,6 +17,10 @@ class CreateResultsTable extends Migration
             $table->id('result_id')->autoIncrement();
             $table->integer('user_id');
             $table->integer('lesson_id');
+            $table->string('total_words');
+            $table->string('minutes');
+            $table->string('correct_words');
+            $table->string('incorrect_words');
             $table->string('wpm');
             $table->string('accuracy');
             $table->string('overall_rating');

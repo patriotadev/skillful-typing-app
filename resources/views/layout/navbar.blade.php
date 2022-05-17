@@ -27,19 +27,19 @@
       </li>
       @else
       <li class="nav-item">
-        <a href="/login" class="nav-link">
+        <a href="/" class="nav-link">
           <i class="fa fa-external-link"></i>
           Home
         </a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link">
+        <a href="/register" class="nav-link">
           <i class="fa fa-external-link"></i>
           Register as a teacher
         </a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link">
+        <a href="/about" class="nav-link">
           <i class="fa fa-external-link"></i>
           About Us
         </a>
