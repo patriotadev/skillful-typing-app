@@ -75,7 +75,8 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/student/lessons/result', [CurrentLessonController::class, 'postStudentLessonResult']);
 
         Route::get('/student/statics', [StudentStaticController::class, 'index']);
-        Route::get('/student/overall', [StudentStaticController::class, 'overall_result']);
+        Route::get('/student/overall', [StudentStaticController::class, 'overallResult']);
+        Route::post('/student/overall', [StudentStaticController::class, 'postOverallResult']);
 
         Route::post('/student/statics', [StudentStaticController::class, 'getLessonStaticById']);
     });

@@ -67,6 +67,11 @@
                           <button type="submit" class="btn btn-info">Search</button>
                         </div>
                     </div>
+                    @isset($message)
+                    <div class="row">
+                      <span>{{ $message }}</span>
+                    </div>      
+                    @endisset
                     @isset($result) 
                     <div class="row ml-2 mt-5">
                       <div>
@@ -112,8 +117,13 @@
   var data = {
     labels: ["Total Words", "Correct Words", "Incorrect Words", "Minutes"],
     datasets: [{
-      label: '# of Votes',
-      data: [30, 19, 3, 5, 2, 3],
+      label: 'Total ',
+      data: [
+        <?= isset($result) ? $result->total_words : 0; ?>, 
+        <?= isset($result) ? $result->correct_words : 0; ?>,
+        <?= isset($result) ? $result->incorrect_words : 0; ?>,
+        <?= isset($result) ? $result->minutes : 0; ?>,
+      ],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -207,7 +217,7 @@
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
       'Accuracy',
-      'Percent',
+      'Total',
     ]
   };
   var doughnutPieOptions = {

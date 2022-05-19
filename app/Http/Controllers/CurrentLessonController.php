@@ -108,6 +108,10 @@ class CurrentLessonController extends Controller
         $data = [
             'user_id' => session('user_id'),
             'lesson_id' => $request->lesson_id,
+            'total_words' => $request->total_words,
+            'minutes' => $request->minutes,
+            'correct_words' => $request->correct_words,
+            'incorrect_words' => $request->incorrect_words,
             'wpm' => $request->wpm,
             'accuracy' => $request->accuracy,
             'overall_rating' => $request->overall_rating,

@@ -80,7 +80,6 @@
 
     lessonText = $('.lesson-text').text().split(" ")
     lessonText.splice(lessonText.length - 1, 1)
-    console.log(lessonText)
 
     let inputArray = []
     $('#input-text').on('keyup', function(e) {
@@ -91,25 +90,20 @@
         inCorrectValue = []
         textValue = $(this).val()
         inputArray.push(textValue.substring(0, textValue.length - 1))
-        console.log(inputArray)
             for (let i=0; i < inputArray.length; i++) {
                 $(`#text${i + 1}`).css({"background-color": "lightgrey", 'padding': '2px', "border-radius": "7px"});
                 console.log(lessonText[i] + ' - ' + inputArray[i])
                 if (lessonText[i] == inputArray[i]) {
-                    console.log("Green!")
                     correctValue.push([lessonText[i]])
                     $(`#text${i}`).css("background-color", "transparent");
                     $(`#text${i}`).css("color", "green");
                 } else {
-                    console.log("Red!")
                     inCorrectValue.push([lessonText[i]])
                     $(`#text${i}`).css("background-color", "transparent");
                     $(`#text${i}`).css("color", "red");
                 }
             } 
-        console.log('total : ' + lessonText.length)
-        console.log('correct : ' + correctValue.length)
-        console.log('incorrect : ' + inCorrectValue.length)
+     
         totalWordType = correctValue.length + inCorrectValue.length
         if (lessonText.length === totalWordType) {
             // window.location = '/student/lessons'
@@ -120,15 +114,11 @@
 
             minutesToSeconds = (getMinutes * 60) + getSeconds
             secondsToMinutes = minutesToSeconds / 60;
-            wpm = totalWordType / secondsToMinutes
 
-            accuracy = (correctValue.length / totalWordType) * 100
-
-            console.log(`${wpm} WPM`)
-            console.log(`Accuracy : ${accuracy}%`)
-
+            wpm = (totalWordType / secondsToMinutes).toFixed(2)
+            accuracy = ((correctValue.length / totalWordType) * 100).toFixed(2)
             totalWords = lessonText.length
-            minutes = secondsToMinutes
+            minutes = secondsToMinutes.toFixed(2)
             correctWords = correctValue.length
             incorrectWords = inCorrectValue.length
 
@@ -136,6 +126,10 @@
             url: '/student/lessons/result',
             data: {
                 lesson_id: $('#lesson_id').val(),
+                total_words: totalWords.toString(),
+                minutes: minutes.toString(),
+                correct_words: correctWords.toString(),
+                incorrect_words: incorrectWords.toString(),
                 wpm: wpm,
                 accuracy: accuracy,
                 overall_rating: '-'
@@ -158,7 +152,13 @@
             },
             error: (error) => {
                 console.log(error)
-                window.location = '/student/lessons'
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Result',
+                    text: `Can't process the result`,
+                }).then(function() {
+                    window.location = '/student/lessons'
+                });
             }
             })
         }
@@ -189,8 +189,12 @@
             url: '/student/lessons/result',
             data: {
                 lesson_id: $('#lesson_id').val(),
-                wpm: '100 WPM',
-                accuracy: '80%',
+                total_words: totalWords.toString(),
+                minutes: minutes.toString(),
+                correct_words: correctWords.toString(),
+                incorrect_words: incorrectWords.toString(),
+                wpm: wpm,
+                accuracy: accuracy,
                 overall_rating: '-'
             },
             method: 'POST',
@@ -214,7 +218,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Result',
-                    text: '100 WPM - 80% Accuracy',
+                    text: `Can't process the result`,
                 }).then(function() {
                     window.location = '/student/lessons'
                 });

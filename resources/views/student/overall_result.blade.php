@@ -28,38 +28,57 @@
          <!-- /.card-header -->
         <div class="card-body">
            <div class="container">
+              <form action="/student/overall" method="POST">
+              @csrf 
                <div class="row">
-                <label for="exampleFormControlSelect1">Courses</label>
-                <select class="form-control" id="course" name="course" required>
-                    <option value="">Course</option>
-                </select>
+                <div class="col-md-12">
+                  <label for="exampleFormControlSelect1">Courses</label>
+                  <div class="input-group">
+                    <select class="form-control" id="course" name="course_id" required>
+                      <option value="">-- Course --</option>
+                      @foreach($courses as $course)
+                        <option  value="{{ $course->course_id }}">{{ $course->course_name }}</option>
+                      @endforeach
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-info" type="submit">Search</button>
+                    </div>
+                  </div>
+                </div>
                </div>
+              </form>
+               @isset($lessons_completed)
                <div class="row mt-5">
-                <canvas id="areaChart"></canvas>
-               </div>
-               <div class="row mt-4">
-                <div class="col">
+                 <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
+                 <canvas id="lineChart"></canvas>
+                </div>
+                <div class="row mt-4">
+                  <div class="col">
+                  <label for="">Course</label>
                     <ul>
-                        <li>Speed :</li>
-                        <li>Accuracy :</li>
-                        <li>Error Words :</li>
+                        <li>Speed : {{ $avg_speed }} WPM</li>
+                        <li>Accuracy : {{ $avg_accuracy }}%</li>
+                        <li>Error Words : {{ $error_words }} Words</li>
                     </ul>
                 </div>
                 <div class="col">
-                    {{-- <label for="">Total</label> --}}
-                    <ul>
-                        <li>Lesson Completed :</li>
-                        <li>Time Spend :</li>
-                        <li>Words Typed :</li>
-                    </ul>
+                  <label for="">Total</label>
+                  <ul>
+                    <li>Lesson Completed : {{ $lessons_completed }}</li>
+                    <li>Time Spend : {{ $time_spend }} Minutes</li>
+                    <li>Words Typed : {{ $words_typed }} Words</li>
+                  </ul>
                 </div>
-               </div>
+              </div>
+              @endisset
            </div>
         </div>
          <!-- /.card-body -->
-        <div class="card-footer d-flex justify-content-end">
-            <a href="" class="btn btn-danger">Print PDF</a>
-        </div>
+         @isset($lessons_completed)  
+          <div class="card-footer d-flex justify-content-end">
+           <a href="" class="btn btn-danger">Print PDF</a>
+          </div>
+          @endisset
        <!-- /.card -->
       </div>
       </div>
@@ -74,6 +93,7 @@
 
 
 @section('js')
+
 <script>
     $(function() {
   /* ChartJS
@@ -82,10 +102,18 @@
    */
   'use strict';
   var data = {
-    labels: ["Total Words", "Correct Words", "Incorrect Words", "Minutes"],
+    labels: ['All Lessons', 'Lessons Completed', 'Speed Average', 'Accuracy Average', 'Error Words', 'Time Spend', 'Words Typed'],
     datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
+      label: '# <?= isset($selected_course) ? $selected_course->course_name : ''; ?>',
+      data: [
+        <?= isset($lessons_count) ? $lessons_count : 0; ?>, 
+        <?= isset($lessons_completed) ? $lessons_completed : 0; ?>, 
+        <?= isset($avg_speed) ? $avg_speed : 0; ?>, 
+        <?= isset($avg_accuracy) ? $avg_accuracy : 0; ?>, 
+        <?= isset($error_words) ? $error_words : 0; ?>, 
+        <?= isset($time_spend) ? $time_spend : 0; ?>, 
+        <?= isset($words_typed) ? $words_typed : 0; ?>
+      ],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -102,8 +130,11 @@
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)'
       ],
-      borderWidth: 1,
-      fill: false
+      // borderWidth: 1,
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1,
+      // showLine: true
     }]
   };
   var multiLineData = {
@@ -190,10 +221,18 @@
     }
   };
   var areaData = {
-    labels: ["2013", "2014", "2015", "2016", "2017"],
+    labels: ['All Lessons', 'Lessons Completed', 'Speed Average', 'Accuracy Average', 'Error Words', 'Time Spend', 'Words Typed'],
     datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      label: '# <?= isset($selected_course) ? $selected_course->course_name : '' ?>',
+      data: [
+        <?= isset($lessons_count) ? $lessons_count : 0; ?>, 
+        <?= isset($lessons_completed) ? $lessons_completed : 0; ?>, 
+        <?= isset($avg_speed) ? $avg_speed : 0; ?>, 
+        <?= isset($avg_accuracy) ? $avg_accuracy : 0; ?>, 
+        <?= isset($error_words) ? $error_words : 0; ?>, 
+        <?= isset($time_spend) ? $time_spend : 0; ?>, 
+        <?= isset($words_typed) ? $words_typed : 0; ?>
+      ],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
