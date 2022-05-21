@@ -17,6 +17,10 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->integer('course_id')->autoIncrement();
             $table->string('course_name');
+            $table->string('course_type')->default('Lesson');
+            $table->integer('min_speed')->nullable();
+            $table->integer('max_error')->nullable();
+            $table->integer('max_duration')->default(5);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

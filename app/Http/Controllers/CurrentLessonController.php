@@ -86,18 +86,19 @@ class CurrentLessonController extends Controller
 
     public function postStudentCurrentLessonStart(Request $request)
     {
-        // $course = Course::where('course_id', $request->course)->first();
-        // $section = Section::where(['section_id' => $request->section, 'course_id', $request->course])->first();
         $lesson_file_name = Lesson::where('lesson_id', $request->lesson)->pluck('lesson_file')->first();
         $lesson_text_from_file = Storage::disk('local')->get('public/' . $lesson_file_name);
-
         $lesson_text_array = explode(' ', $lesson_text_from_file);
+
+        $lesson_course_id = Lesson::where('lesson_id', $request->lesson)->first()->course_id;
+        $course_duration = Course::where('course_id', $lesson_course_id)->first()->max_duration;
 
         $data = [
             'title' => 'Skillful Typing | Current Lesson',
             'lesson_name' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_name')->first(),
             'lesson_id' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_id')->first(),
-            'lesson_text' => $lesson_text_array
+            'lesson_text' => $lesson_text_array,
+            'course_duration' => $course_duration
         ];
 
         return view('student.lessons_start', $data);

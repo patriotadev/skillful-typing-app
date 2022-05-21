@@ -49,14 +49,6 @@
   </div>
 <!-- /.content -->
 
-
-<style>
-    .row-result {
-        float: left;
-    }
-</style>
-
-
 <script src="{{ asset('admin_lte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('admin_lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }} "></script>
 <script src="{{ asset('admin_lte/plugins/chart.js/Chart.min.js') }} "></script>

@@ -53,6 +53,50 @@
     </div>
 </div>
 
+<!-- Setting Course Modal -->
+<div class="modal fade" id="modal-setting-course" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Form Setting Course</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="form-setting-course" action="/admin/courses/setting" method="POST">
+        <div class="modal-body">
+            @csrf
+            <input type="hidden" name="course_id" id="course_id">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Course Type</label>
+                <select class="form-control" id="course_type" name="course_type">
+                    <option value="">-- Course Type --</option> 
+                    <option value="Lesson">Lesson</option> 
+                    <option value="Test">Test</option> 
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Speed isn't less than</label>
+              <input id="min_speed" type="number" class="form-control" name="min_speed" placeholder="WPM">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Error aren't more than</label>
+              <input id="max_error" type="number" class="form-control" name="max_error" placeholder="Words">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Lesson Duration</label>
+              <input id="max_duration" type="number" class="form-control" name="max_duration" placeholder="Minutes">
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 <!-- Add Section Modal -->
 <div class="modal fade" id="modal-add-section" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

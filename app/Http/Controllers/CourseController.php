@@ -59,4 +59,18 @@ class CourseController extends Controller
         Section::where('course_id', $id)->delete();
         Lesson::where('course_id', $id)->delete();
     }
+
+    public function setting(Request $request)
+    {
+        $course_id = $request->course_id;
+        $data = [
+            'course_type' => $request->course_type,
+            'min_speed' => $request->min_speed,
+            'max_error' => $request->max_error,
+            'max_duration' => $request->max_duration,
+        ];
+
+        Course::where('course_id', $course_id)->update($data);
+        return redirect('/admin/courses');
+    }
 }

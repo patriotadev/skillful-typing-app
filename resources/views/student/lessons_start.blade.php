@@ -105,23 +105,23 @@
             } 
      
         totalWordType = correctValue.length + inCorrectValue.length
+        timeToSecond = $('.countdown').html()
+        timeArray = timeToSecond.split(":")
+        getMinutes = parseInt(timeArray[0]);
+        getSeconds = parseInt(timeArray[1]);
+
+        minutesToSeconds = (getMinutes * 60) + getSeconds
+        secondsToMinutes = minutesToSeconds / 60;
+
+        wpm = (totalWordType / secondsToMinutes).toFixed(2)
+        accuracy = ((correctValue.length / totalWordType) * 100).toFixed(2)
+        totalWords = lessonText.length
+        minutes = secondsToMinutes.toFixed(2)
+        correctWords = correctValue.length
+        incorrectWords = inCorrectValue.length
+
         if (lessonText.length === totalWordType) {
             // window.location = '/student/lessons'
-            timeToSecond = $('.countdown').html()
-            timeArray = timeToSecond.split(":")
-            getMinutes = parseInt(timeArray[0]);
-            getSeconds = parseInt(timeArray[1]);
-
-            minutesToSeconds = (getMinutes * 60) + getSeconds
-            secondsToMinutes = minutesToSeconds / 60;
-
-            wpm = (totalWordType / secondsToMinutes).toFixed(2)
-            accuracy = ((correctValue.length / totalWordType) * 100).toFixed(2)
-            totalWords = lessonText.length
-            minutes = secondsToMinutes.toFixed(2)
-            correctWords = correctValue.length
-            incorrectWords = inCorrectValue.length
-
             $.ajax({
             url: '/student/lessons/result',
             data: {
@@ -178,13 +178,10 @@
         minutes = (seconds > 59) ? ++minutes : minutes;
         // if (minutes < 0) clearInterval(interval);
 
-        if (minutes == 2) {
-            console.log("Waktu Habis!!")
-
+        if (minutes == <?= $course_duration; ?>) {
+            console.log("===" + this.totalWords)
             console.log(this.correctValue)
             clearInterval(interval);
-
-            AJAX
             $.ajax({
             url: '/student/lessons/result',
             data: {
@@ -208,7 +205,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Result',
-                    text: '100 WPM - 80% Accuracy',
+                    text: `${wpm} WPM - ${accuracy}% Accuracy`,
                 }).then(function() {
                     window.location = '/student/lessons'
                 });

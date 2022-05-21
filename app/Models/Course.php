@@ -13,5 +13,5 @@ class Course extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['course_name'];
+    protected $fillable = ['course_name', 'course_type', 'min_speed', 'max_error', 'max_duration'];
 }

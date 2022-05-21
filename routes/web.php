@@ -44,6 +44,7 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/admin/courses/add', [CourseController::class, 'create']);
         Route::post('/admin/courses/update', [CourseController::class, 'update']);
         Route::get('/admin/courses/delete/{id}', [CourseController::class, 'delete']);
+        Route::post('/admin/courses/setting', [CourseController::class, 'setting']);
 
         Route::get('/admin/courses/{course_id}/sections/{section_id}/lessons', [SectionController::class, 'view']);
         Route::post('/admin/sections/add', [SectionController::class, 'create']);
@@ -73,6 +74,11 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/student/lessons/start', [CurrentLessonController::class, 'postStudentCurrentLessonStart']);
         Route::get('/student/tests', [CurrentLessonController::class, 'getStudentCurrentTest']);
         Route::post('/student/lessons/result', [CurrentLessonController::class, 'postStudentLessonResult']);
+
+
+
+
+
 
         Route::get('/student/statics', [StudentStaticController::class, 'index']);
         Route::get('/student/overall', [StudentStaticController::class, 'overallResult']);
