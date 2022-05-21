@@ -79,5 +79,6 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/student/overall', [StudentStaticController::class, 'postOverallResult']);
 
         Route::post('/student/statics', [StudentStaticController::class, 'getLessonStaticById']);
+        Route::post('/student/overall/pdf', [StudentStaticController::class, 'printToPdf']);
     });
 });

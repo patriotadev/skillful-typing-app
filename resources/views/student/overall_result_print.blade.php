@@ -1,21 +1,3 @@
-@extends('layout.base')
-
-@section('content')
-    <!-- Content Header (Page header) -->
-   <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2 d-flex justify-content-between">
-        <div class="col-sm-6">
-          {{-- <h1 class="m-0">Lesson Editor</h1> --}}
-        </div><!-- /.col -->
-        <div>
-          {{-- <button class="btn btn-primary" onclick="openAddCourseModal()">Add Course</button> --}}
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
-
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
@@ -23,36 +5,19 @@
         <div class="col-12">
        <div class="card">
         <div class="card-header">
-           <h3 class="card-title">Overall Result</h3>
+           <h3 class="card-title">Name : {{ session('user_name') }}</h3>
+           <h3 class="card-title">NIM : {{ session('user_nim') }}</h3>
+           <h3 class="card-title">Class : {{ $user_class }}</h3>
         </div>
          <!-- /.card-header -->
         <div class="card-body">
            <div class="container">
-              <form action="/student/overall" method="POST">
-              @csrf 
-               <div class="row">
-                <div class="col-md-12">
-                  <label for="exampleFormControlSelect1">Courses</label>
-                  <div class="input-group">
-                    <select class="form-control" id="course" name="course_id" required>
-                      <option value="">-- Course --</option>
-                      @foreach($courses as $course)
-                        <option  value="{{ $course->course_id }}">{{ $course->course_name }}</option>
-                      @endforeach
-                    </select>
-                    <div class="input-group-append">
-                      <button class="btn btn-info" type="submit">Search</button>
-                    </div>
-                  </div>
-                </div>
-               </div>
-              </form>
                @isset($lessons_completed)
                <div class="row mt-5">
                  <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
                  <canvas id="lineChart"></canvas>
                 </div>
-                <div class="row mt-4">
+                <div class="row-result row mt-4">
                   <div class="col">
                   <label for="">Course</label>
                     <ul>
@@ -74,15 +39,6 @@
            </div>
         </div>
          <!-- /.card-body -->
-         @isset($lessons_completed)  
-          <div class="card-footer d-flex justify-content-end">
-            <form action="/student/overall/pdf" method="POST">
-              @csrf
-              <input type="hidden" value="{{ $selected_course->course_id }}" name="course_id">
-              <button type="submit" class="btn btn-danger">Print PDF</button>
-            </form>
-          </div>
-          @endisset
        <!-- /.card -->
       </div>
       </div>
@@ -93,17 +49,19 @@
   </div>
 <!-- /.content -->
 
-@endsection
+
+<style>
+    .row-result {
+        float: left;
+    }
+</style>
 
 
-@section('js')
-
+<script src="{{ asset('admin_lte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin_lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }} "></script>
+<script src="{{ asset('admin_lte/plugins/chart.js/Chart.min.js') }} "></script>
 <script>
     $(function() {
-  /* ChartJS
-   * -------
-   * Data and config for chartjs
-   */
   'use strict';
   var data = {
     labels: ['All Lessons', 'Lessons Completed', 'Speed Average', 'Accuracy Average', 'Error Words', 'Time Spend', 'Words Typed'],
@@ -470,4 +428,3 @@
   }
 })
 </script>
-@endsection

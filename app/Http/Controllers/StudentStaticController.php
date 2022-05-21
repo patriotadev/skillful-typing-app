@@ -7,6 +7,7 @@ use App\Models\Group;
 use App\Models\Lesson;
 use App\Models\Result;
 use App\Models\Section;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class StudentStaticController extends Controller
@@ -131,7 +132,7 @@ class StudentStaticController extends Controller
                 'sections' => $sections->get(),
                 'lessons' => $lessons,
                 'result' => $result,
-                'message' => 'Lesson result not found.'
+                // 'message' => 'Lesson result not found.'
             ];
 
             return view('student.student_static', $data);
@@ -147,5 +148,54 @@ class StudentStaticController extends Controller
         ];
 
         return view('student.student_static', $data);
+    }
+
+    public function printToPdf(Request $request)
+    {
+        $class = Group::where('class_id', session('user_class'))->first();
+        $assigned_courses = explode(',', $class->assigned_courses);
+        $courses = Course::whereIn('course_id', $assigned_courses);
+
+        $sections = Section::where('course_id', $request->course_id);
+        $lessons = Lesson::where('course_id', $request->course_id);
+
+        $selectedCourse = Course::where('course_id', $request->course_id)->first();
+        $lessons_name =  $lessons->pluck('lesson_name')->toArray();
+        $lessons_id =  $lessons->pluck('lesson_id')->toArray();
+        $lessons_completed = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->pluck('lesson_id')->count();
+        $sum_speed = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('wpm');
+        $sum_accuracy = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('accuracy');
+        $error_words = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('incorrect_words');
+        $correct_words = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('correct_words');
+        $time_spend = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('minutes');
+
+        $data = [
+            'title' => 'Skillful Typing | Student Static - Overall Result',
+            'courses' => $courses->get(),
+            'lessons_name' => implode(', ', $lessons_name),
+            'lessons_count' => $lessons->count(),
+            'sections_name' => $sections->get(),
+            'selected_course' => $selectedCourse,
+            'lessons_completed' => $lessons_completed,
+            'avg_speed' => $sum_speed / $lessons_completed,
+            'avg_accuracy' => $sum_accuracy / $lessons_completed,
+            'error_words' => $error_words,
+            'time_spend' => number_format((float)$time_spend, 2, '.', ''),
+            'words_typed' => $correct_words + $error_words,
+            'user_class' => Group::where('class_id', session('user_class'))->first()->class_name
+        ];
+
+        // // return view('student.overall_result', $data);
+        $pdf = PDF::loadView('student.overall_result_print', $data)->setPaper('A4', 'landscape')->setOptions([
+            'dpi' => 150,
+            'defaultFont' => 'sans-serif',
+            'enable-javascript' => true,
+            'javascript-delay' => 13000,
+            'images' => true,
+            'enable-smart-shrinking' => true,
+            'no-stop-slow-scripts' => true
+        ]);
+
+        return $pdf->download(session('user_name') . '_' . $selectedCourse->course_name);
     }
 }
