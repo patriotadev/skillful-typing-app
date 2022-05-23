@@ -34,7 +34,7 @@
                           <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Courses</label>
                             <select class="form-control" id="course" name="course" required>
-                              <option value=""> -- Courses --</option>
+                              {{-- <option value=""> -- Courses --</option> --}}
                                 @foreach ($courses as $course) 
                                 <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
                                 @endforeach
@@ -45,7 +45,7 @@
                             <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Sections</label>
                                 <select class="form-control" id="section" name="section" required>
-                                    <option value="">-- Section --</option>
+                                    {{-- <option value="">-- Section --</option> --}}
                                     @foreach ($sections as $section) 
                                     <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
                                     @endforeach

@@ -22,6 +22,8 @@
       <div class="row">
         <div class="col-12">
        <div class="card">
+         <form action="/student/tests/start" method="POST">
+          @csrf
          <div class="card-header">
            <h3 class="card-title">Current Test</h3>
          </div>
@@ -33,9 +35,9 @@
                         <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Courses</label>
                             <select class="form-control" id="roles" name="roles" required>
-                                <option value="">-- Courses --</option>
+                                {{-- <option value="">-- Courses --</option> --}}
                                 @foreach ($courses as $course)
-                                    <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
+                                    <option {{ $course->course_id == $last_course_id ? 'selected' : '' }} value="{{ $course->course_id }}">{{ $course->course_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -44,9 +46,9 @@
                         <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Sections</label>
                             <select class="form-control" id="roles" name="roles" required>
-                                <option value="">-- Sections --</option>
+                                {{-- <option value="">-- Sections --</option> --}}
                                 @foreach ($sections as $section)    
-                                    <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
+                                    <option {{ $section->section_id == $last_section_id ? 'selected' : '' }} value="{{ $section->section_id }}">{{ $section->section_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -54,10 +56,27 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="" class="mt-2">Lessons</label>
+                        <label for="" class="mt-2">Finished Test</label>
+                        @isset($all_finished_lesson)  
+                          @foreach ($all_finished_lesson as $finished)   
+                            @foreach ($lessons as $lesson)
+                              @if($lesson->lesson_id == $finished->lesson_id)
+                              <div class="form-check">
+                                <input checked id="lesson{{$lesson->lesson_id}}" class="form-check-input" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  {{ $lesson->lesson_name }}
+                                </label>
+                              </div>
+                              @endif
+                            @endforeach
+                          @endforeach
+                        @endisset
+                    </div>
+                    <div class="col">
+                        <label for="" class="mt-2">Select Test</label>
                         @foreach ($lessons as $lesson) 
                         <div class="form-check">
-                          <input id="id" class="form-check-input" name="assigned_courses[]" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
+                          <input id="id" class="form-check-input" name="lesson" type="radio" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
                           <label class="form-check-label" for="flexCheckDefault">
                             {{ $lesson->lesson_name }}
                           </label>
@@ -72,10 +91,11 @@
          </div>
          <!-- /.card-body -->
          <div class="card-footer">
-             <div class="d-flex justify-content-center">
-                 <button class="btn btn-primary">Start</button>
+             <div class="d-flex justify-content-end">
+                 <button type="submit" class="btn btn-primary">Start</button>
              </div>
          </div>
+         </form>
        </div>
        <!-- /.card -->
       </div>

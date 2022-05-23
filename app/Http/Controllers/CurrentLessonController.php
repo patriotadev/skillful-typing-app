@@ -18,12 +18,11 @@ class CurrentLessonController extends Controller
     {
         $class = Group::where('class_id', session('user_class'))->first();
         $assigned_courses = explode(',', $class->assigned_courses);
-        $courses = Course::whereIn('course_id', $assigned_courses);
-        $sections = Section::whereIn('course_id', $assigned_courses);
+        $courses = Course::where('course_type', 'Lesson')->whereIn('course_id', $assigned_courses);
+        $sections = Section::whereIn('course_id', $courses->pluck('course_id')->toArray());
         $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
 
         // Get user lesson history
-
         $userResult = Result::where('user_id', session('user_id'));
 
         if ($userResult->count() > 0) {
@@ -63,26 +62,6 @@ class CurrentLessonController extends Controller
         // return $data;
     }
 
-    public function getStudentCurrentTest()
-    {
-        $class = Group::where('class_id', session('user_class'))->first();
-        $assigned_courses = explode(',', $class->assigned_courses);
-        $courses = Course::whereIn('course_id', $assigned_courses);
-        $sections = Section::whereIn('course_id', $assigned_courses);
-        $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
-
-
-
-        $data = [
-            'title' => 'Skillful Typing | Current Test',
-            'class' => $class,
-            'courses' => $courses->get(),
-            'sections' => $sections->get(),
-            'lessons' => $lessons
-        ];
-
-        return view('student.test', $data);
-    }
 
     public function postStudentCurrentLessonStart(Request $request)
     {
@@ -130,16 +109,19 @@ class CurrentLessonController extends Controller
 
     public function getHomeCurrentLesson()
     {
+
+        $courses = Course::where('course_type', 'Lesson');
+        $sections =  Section::whereIn('course_id', $courses->pluck('course_id')->toArray());
+        $lessons = Lesson::whereIn('course_id', $courses->pluck('course_id')->toArray());
+
         $data = [
             'title' => 'Skillful Typing | Current Lessons',
-            'courses' => Course::all(),
-            'sections' => Section::all(),
-            'lessons' => Lesson::all()
+            'courses' => $courses->get(),
+            'sections' => $sections->get(),
+            'lessons' => $lessons->get()
         ];
 
         return view('home.lessons', $data);
-
-        // return $data;
     }
 
     public function postHomeCurrentLessonStart(Request $request)

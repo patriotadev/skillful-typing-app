@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CurrentLessonController;
+use App\Http\Controllers\CurrentTestController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\SectionController;
@@ -72,12 +73,12 @@ Route::middleware([Authentications::class])->group(function () {
         Route::get('/student/lessons', [CurrentLessonController::class, 'getStudentCurrentLesson']);
         Route::get('/student/lessons/start', [CurrentLessonController::class, 'getStudentLessonStart']);
         Route::post('/student/lessons/start', [CurrentLessonController::class, 'postStudentCurrentLessonStart']);
-        Route::get('/student/tests', [CurrentLessonController::class, 'getStudentCurrentTest']);
         Route::post('/student/lessons/result', [CurrentLessonController::class, 'postStudentLessonResult']);
 
 
-
-
+        Route::get('/student/tests', [CurrentTestController::class, 'getStudentCurrentTest']);
+        Route::post('/student/tests/start', [CurrentTestController::class, 'postStudentCurrentTestStart']);
+        Route::post('/student/tests/result', [CurrentTestController::class, 'postStudentTestResult']);
 
 
         Route::get('/student/statics', [StudentStaticController::class, 'index']);
