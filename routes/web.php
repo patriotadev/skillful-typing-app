@@ -62,6 +62,11 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/admin/class/add', [GroupController::class, 'create']);
         Route::post('/admin/class/update', [GroupController::class, 'update']);
         Route::get('/admin/class/delete/{id}', [GroupController::class, 'delete']);
+        Route::get('/admin/class/{class_id}/students/{student_id}', [GroupController::class, 'getStudentStatic']);
+        Route::post('/admin/class/{class_id}/students/{student_id}', [GroupController::class, 'getStudentStaticById']);
+        Route::get('/admin/class/{class_id}/students/{student_id}/overall', [GroupController::class, 'studentOverallResult']);
+        Route::post('/admin/class/{class_id}/students/{student_id}/overall', [GroupController::class, 'postStudentOverallResult']);
+        Route::post('/admin/class/{class_id}/students/{student_id}/overall/pdf', [GroupController::class, 'printToPdf']);
 
         Route::get('/admin/users', [UserController::class, 'index']);
         Route::post('/admin/users/add', [UserController::class, 'create']);

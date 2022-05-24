@@ -44,7 +44,7 @@
                   <td>{{ $student->fullname }}</td>
                   <td>{{ $student->email }}</td>
                   <td>
-                    <a href="/admin/courses/{{$student->user_id}}/student" class="badge badge-primary">View</a>
+                    <a href="/admin/class/{{$class_id}}/students/{{$student->user_id}}" class="badge badge-primary">View</a>
                     <a onclick="openUpdateClassModal(`{{$student->user_id}}`)" class="badge badge-info">Overall Result</a>
                   </td>
                 </tr>

@@ -58,7 +58,6 @@ class CurrentTestController extends Controller
         return view('student.test', $data);
     }
 
-
     public function postStudentCurrentTestStart(Request $request)
     {
         $lesson_file_name = Lesson::where('lesson_id', $request->lesson)->pluck('lesson_file')->first();
