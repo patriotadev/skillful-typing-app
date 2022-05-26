@@ -6,7 +6,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link"><span class="text-bold">Hello, </span>{{ session('user_name') }}</a>
+        <a class="nav-link"><span class="text-bold">Hello, </span><span onclick="toEditProfilePage()" class="user-name">{{ session('user_name') }}</span></a>
       </li>
       {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -54,3 +54,17 @@
     </ul>
   </nav>
   <!-- /.navbar -->
+
+
+<style>
+  .user-name:hover {
+    cursor: pointer;
+  }
+</style>
+
+
+<script>
+  toEditProfilePage = () => {
+    window.location = '/profile/<?= session('user_id') ?>'
+  }
+</script>

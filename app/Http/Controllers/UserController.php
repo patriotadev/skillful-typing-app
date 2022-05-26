@@ -144,4 +144,124 @@ class UserController extends Controller
         $request->session()->flash('add_teacher_success', 'Teacher has been added!');
         return redirect('/register');
     }
+
+
+    public function editProfile($user_id)
+    {
+
+        $user = User::where('user_id', $user_id)->first();
+
+        if (session('user_roles') == 'Admin') {
+            $data = [
+                'title' => 'Skillful Typing | Profile',
+                'user_id' => $user->user_id,
+                'fullname' => $user->fullname,
+                'phone' => $user->phone,
+                'email' => $user->email,
+                'username' => $user->username,
+                'password' => $user->password,
+                'status' => $user->status,
+                'level' => $user->level,
+                'status' => $user->status,
+
+            ];
+            return view('admin.edit_profile', $data);
+        }
+
+        $data = [
+            'title' => 'Skillful Typing | Profile',
+            'user_id' => $user->user_id,
+            'nim' => $user->nim,
+            'fullname' => $user->fullname,
+            'student_class' => Group::where('class_id', $user->class)->first()->class_name,
+            'major' => $user->major,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'username' => $user->username,
+            'password' => $user->password,
+            'status' => $user->status,
+            'level' => $user->level,
+            'status' => $user->status,
+        ];
+        return view('student.edit_profile', $data);
+    }
+
+    public function postEditProfile($user_id, Request $request)
+    {
+
+        if (session('user_roles') == 'Admin') {
+            $request->validate(
+                [
+                    'fullname' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'username' => 'required',
+                    'confirm_new_password' => 'same:password',
+                    'level' => 'required',
+                    'status' => 'required',
+                ],
+                [
+                    'fullname.required' => 'Please input username field.',
+                    'phone.required' => 'Please input phone field.',
+                    'email.required' => 'Please input email field.',
+                    'username.required' => 'Please input username field.',
+                    'confirm_new_password.same' => 'New password isn\'t match with password',
+                    'level.required' => 'Please input level field.',
+                    'status.required' => 'Please input status field.',
+                ]
+            );
+
+            $oldPass = User::where('user_id', $user_id)->first()->password;
+            $data = [
+                'fullname' => $request->fullname,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
+                'status' => $request->status,
+                'level' => $request->level,
+            ];
+        }
+
+        if (session('user_roles') == 'Student') {
+            $request->validate(
+                [
+                    'nim' => 'required',
+                    'fullname' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'username' => 'required',
+                    'confirm_new_password' => 'same:password',
+                    'level' => 'required',
+                    'status' => 'required',
+                ],
+                [
+                    'nim.required' => 'Please input nim field',
+                    'fullname.required' => 'Please input username field.',
+                    'phone.required' => 'Please input phone field.',
+                    'email.required' => 'Please input email field.',
+                    'username.required' => 'Please input username field.',
+                    'confirm_new_password.same' => 'New password isn\'t match with password',
+                    'level.required' => 'Please input level field.',
+                    'status.required' => 'Please input status field.',
+                ]
+            );
+
+            $oldPass = User::where('user_id', $user_id)->first()->password;
+            $data = [
+                'nim' => $request->nim,
+                'fullname' => $request->fullname,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
+                'status' => $request->status,
+                'level' => $request->level,
+            ];
+        }
+
+        User::where('user_id', $user_id)->update($data);
+        $request->session()->flash('edit_profile_success', 'Profile has been updated!');
+        return redirect('/profile/' . $user_id);
+    }
 }

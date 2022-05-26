@@ -92,6 +92,25 @@ class StudentStaticController extends Controller
         $correct_words = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('correct_words');
         $time_spend = Result::where('user_id', session('user_id'))->whereIn('lesson_id', $lessons_id)->sum('minutes');
 
+        if ($lessons_completed > 0) {
+            $data = [
+                'title' => 'Skillful Typing | Student Static - Overall Result',
+                'courses' => $courses->get(),
+                'lessons_name' => implode(', ', $lessons_name),
+                'lessons_count' => $lessons->count(),
+                'sections_name' => $sections->get(),
+                'selected_course' => $selectedCourse,
+                'lessons_completed' => $lessons_completed,
+                'avg_speed' => $sum_speed / $lessons_completed,
+                'avg_accuracy' => $sum_accuracy / $lessons_completed,
+                'error_words' => $error_words,
+                'time_spend' => number_format((float)$time_spend, 2, '.', ''),
+                'words_typed' => $correct_words + $error_words
+            ];
+
+            return view('student.overall_result', $data);
+        }
+
         $data = [
             'title' => 'Skillful Typing | Student Static - Overall Result',
             'courses' => $courses->get(),
@@ -99,12 +118,6 @@ class StudentStaticController extends Controller
             'lessons_count' => $lessons->count(),
             'sections_name' => $sections->get(),
             'selected_course' => $selectedCourse,
-            'lessons_completed' => $lessons_completed,
-            'avg_speed' => $sum_speed / $lessons_completed,
-            'avg_accuracy' => $sum_accuracy / $lessons_completed,
-            'error_words' => $error_words,
-            'time_spend' => number_format((float)$time_spend, 2, '.', ''),
-            'words_typed' => $correct_words + $error_words
         ];
 
         return view('student.overall_result', $data);

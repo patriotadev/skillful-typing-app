@@ -34,10 +34,19 @@ Route::post('/register', [UserController::class, 'postRegisterTeacher']);
 
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login/post', [AuthController::class, 'login']);
+Route::get('/about', function () {
+
+    $data = [
+        'title' => 'Skillful Typing | About'
+    ];
+
+    return view('home.about_us', $data);
+});
 
 Route::middleware([Authentications::class])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
-
+    Route::get('/profile/{user_id}', [UserController::class, 'editProfile']);
+    Route::post('/profile/{user_id}', [UserController::class, 'postEditProfile']);
 
     Route::middleware([Admin::class])->group(function () {
         Route::get('/admin/courses', [CourseController::class, 'index']);

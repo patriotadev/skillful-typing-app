@@ -44,6 +44,28 @@
 </div>
 <!-- ./wrapper -->
 
+<style>
+  .card {
+    box-shadow: 4px 6px 4px lightgrey;
+  }
+</style>
+
+<?php if(session('user_roles') == 'Student') : ?>
+<style>
+  .card {
+    border-top: 3px solid lightskyblue;
+  }
+</style>
+<?php endif; ?>
+
+<?php if(session('user_roles') == 'Admin') : ?>
+<style>
+  .card {
+    border-top: 3px solid salmon;
+  }
+</style>
+<?php endif; ?>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
