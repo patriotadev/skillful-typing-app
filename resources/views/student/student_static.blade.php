@@ -30,40 +30,21 @@
                 @csrf
                 <div class="container">
                     <div class="row">
-                        <div class="col">
-                          <div class="form-group mt-3">
-                            <label for="exampleFormControlSelect1">Courses</label>
-                            <select class="form-control" id="course" name="course" required>
-                              {{-- <option value=""> -- Courses --</option> --}}
-                                @foreach ($courses as $course) 
-                                <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                        <div class="col-md-10">
+                          <div class="form-group">
+                            <select class="form-control" type="radio" name="lesson" id="flexRadioDefault2" required>
+                              <option value="">-- Lessons --</option>
+                              @foreach ($lessons as $lesson)
+                              <option value="{{$lesson->lesson_id}}">
+                                {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
+                                {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
+                                {{ $lesson->lesson_name }}
+                              </option>
+                            @endforeach
+                            </select>
+                          </div>
                         </div>
                         <div class="col">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlSelect1">Sections</label>
-                                <select class="form-control" id="section" name="section" required>
-                                    {{-- <option value="">-- Section --</option> --}}
-                                    @foreach ($sections as $section) 
-                                    <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlSelect1">Lessons</label>
-                                <select class="form-control" id="lesson" name="lesson" required>
-                                    <option value="">-- Lesson --</option>
-                                    @foreach ($lessons as $lesson) 
-                                    <option value="{{ $lesson->lesson_id }}">{{ $lesson->lesson_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col mt-5">
                           <button type="submit" class="btn btn-info">Search</button>
                         </div>
                     </div>

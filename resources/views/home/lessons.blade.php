@@ -30,7 +30,7 @@
          <!-- /.card-header -->
          <div class="card-body">
             <div class="container">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col">
                         <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Courses</label>
@@ -51,35 +51,22 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
-                    {{-- <div class="col">
-                        <label for="" class="mt-2">Finished Lessons</label>
-                        @isset($all_finished_lesson)  
-                          @foreach ($all_finished_lesson as $finished)   
-                            @foreach ($lessons as $lesson)
-                              @if($lesson->lesson_id == $finished->lesson_id)
-                              <div class="form-check">
-                                <input checked id="lesson{{$lesson->lesson_id}}" class="form-check-input" type="checkbox" value="{{$lesson->lesson_id}}" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  {{ $lesson->lesson_name }}
-                                </label>
-                              </div>
-                              @endif
-                            @endforeach
-                          @endforeach
-                        @endisset
-                    </div> --}}
                     <div class="col">
                       <label for="" class="mt-2">Select Lesson</label>
-                      @foreach ($lessons as $lesson)
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lesson" value="{{$lesson->lesson_id}}" id="flexRadioDefault2" required>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                          {{ $lesson->lesson_name }}
-                        </label>
+                      <div class="form-group">
+                        <select class="form-control" name="lesson" id="flexRadioDefault2" required>
+                          <option value="">-- Lessons --</option>
+                          @foreach ($lessons as $lesson)
+                            <option value="{{$lesson->lesson_id}}">
+                            {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
+                            {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
+                            {{ $lesson->lesson_name }}
+                            </option>
+                          @endforeach
+                        </select>
                       </div>
-                      @endforeach
                     </div>
                 </div>
             </div>
