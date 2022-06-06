@@ -50,10 +50,10 @@
                 @endforeach
              </tbody>
            </table>
-         </div>
-         <!-- /.card-body -->
-       </div>
-       <!-- /.card -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
       </div>
       </div>
       <!-- /.row -->
@@ -65,6 +65,17 @@
 @include('admin.lesson_editor_modal')
 @endsection
 
+@if(session('lesson_file_validator'))
+    <script>
+      alert('Failed! file extension should .txt format');
+    </script>
+@endif
+
+@if(session('lesson_add_success'))
+    <script>
+      alert('Success! lesson has been added');
+    </script>
+@endif
 
 @section('js')
 <script type="text/javascript">
@@ -72,30 +83,30 @@
         $('#modal-add-lesson').modal('show')
     }
 
-    $('#form-add-lesson').on('submit', () => {
-    $.ajax({
-      url : $(this).attr('action'),
-      data : $(this).serialize(),
-      method: $(this).attr('method'),
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      contentType: false,
-      processData: false,
-      beforeSend : () => {
-        $('#modal-add-lesson').modal('hide');
-        Swal.showLoading()
-      },
-      success : () => {
-        msg('success', 'Lesson has been added!')
-        window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections/' + <?= $section_id; ?> + '/lessons'
-      },
-      error: (error) => {
-        msg('error', 'Failed to add the lesson!')
-        console.log(error)
-      }
-    })
-  })
+  //   $('#form-add-lesson').on('submit', () => {
+  //   $.ajax({
+  //     url : $(this).attr('action'),
+  //     data : $(this).serialize(),
+  //     method: $(this).attr('method'),
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     contentType: false,
+  //     processData: false,
+  //     beforeSend : () => {
+  //       $('#modal-add-lesson').modal('hide');
+  //       Swal.showLoading()
+  //     },
+  //     success : () => {
+  //       msg('success', 'Lesson has been added!')
+  //       window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections/' + <?= $section_id; ?> + '/lessons'
+  //     },
+  //     error: (error) => {
+  //       msg('error', 'Failed to add the lesson!')
+  //       console.log(error)
+  //     }
+  //   })
+  // })
 
   const openDeleteLessonModal = (id) => {
         lesson_id = id

@@ -7,14 +7,40 @@ use App\Models\Group;
 use App\Models\Lesson;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class LessonController extends Controller
 {
     //
     public function create(Request $request)
     {
+
+        // $validator = Validator::make($request->all(), [
+        //     [
+        //         'lesson_file' => 'required|mimes:txt'
+        //     ],
+        //     [
+        //         'lesson_file.required' => 'Please choose lesson file.',
+        //         'lesson_file.mimes' => 'File extension should .txt format'
+        //     ]
+        // ]);
+
+        // if ($validator->fails()) {
+        //     $request->session()->flash('lesson_file_validator', 'File extension should .txt format');
+        //     return redirect('/admin/courses/' . $request->course_id . '/sections/' . $request->section_id . 'lessons');
+        // }
+
         $file = $request->file('lesson_file');
+
+        $fileExtension = $file->getClientOriginalExtension();
+
+        if ($fileExtension != 'txt') {
+            $request->session()->flash('lesson_file_validator', 'Failed! file extension should .txt format');
+            return redirect('/admin/courses/' . $request->course_id . '/sections/' . $request->section_id . '/lessons');
+        }
+
         $destinationFolder = storage_path('app/public');
         $fileName = time() . '-' . $file->getClientOriginalName();
         $file->move($destinationFolder, $fileName);
@@ -27,6 +53,9 @@ class LessonController extends Controller
         ];
 
         Lesson::create($data);
+
+        $request->session()->flash('lesson_add_success', 'Lesson has been added!');
+        return redirect('/admin/courses/' . $request->course_id . '/sections/' . $request->section_id . '/lessons');
     }
 
     public function view($course_id, $section_id, $lesson_id)

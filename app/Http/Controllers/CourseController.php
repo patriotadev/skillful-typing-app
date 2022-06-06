@@ -36,7 +36,8 @@ class CourseController extends Controller
     {
         //
         $data = [
-            'course_name' => $request->course_name
+            'course_name' => $request->course_name,
+            'course_type' => $request->course_type
         ];
         Course::create($data);
     }

@@ -17,14 +17,39 @@
     <ul class="navbar-nav ml-auto">
       @if (session('hasLogin'))
       <li class="nav-item d-none d-sm-inline-block">
-        <a id="current-time" class="nav-link">Header</a>
+        <a id="current-time" class="nav-link"></a>
       </li>
-      <li class="nav-item">
+      <li class="mr-2">
+        <div class="btn-group">
+          <button class="text-dark border-0 mt-2 btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i>
+          </button>
+          <div class="dropdown-menu">
+            <div class="container">
+              <div class="row mt-2">
+                <div class="col">
+                  <i class="far fa-id-card mr-2">
+                  </i>
+                   <span onclick="toEditProfilePage()" class="user-name">Profile</span>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <i class="fas fa-share mr-2">
+                  </i>
+                   <span onclick="toLogout()" class="user-name">Logout</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {{-- <li class="nav-item">
         <a href="/logout" class="nav-link">
           <i class="fa fa-external-link"></i>
           Logout
         </a>
-      </li>
+      </li> --}}
       @else
       <li class="nav-item">
         <a href="/" class="nav-link">
@@ -66,5 +91,9 @@
 <script>
   toEditProfilePage = () => {
     window.location = '/profile/<?= session('user_id') ?>'
+  }
+
+  toLogout = () => {
+    window.location = '/logout'
   }
 </script>

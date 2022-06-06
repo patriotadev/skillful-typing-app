@@ -15,6 +15,14 @@
               <label for="exampleInputEmail1">Course Name</label>
               <input type="text" class="form-control" name="course_name" placeholder="Enter course name" required>
             </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Course Type</label>
+              <select class="form-control" id="course_type" name="course_type">
+                  <option value="">-- Select --</option> 
+                  <option value="Lesson">Lesson</option> 
+                  <option value="Test">Test</option> 
+              </select>
+          </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,7 +179,7 @@
             <input type="text" class="form-control" name="lesson_name" placeholder="Enter Lesson name" required>
             <input type="hidden" class="form-control" name="course_id" value="{{ isset($course_id) ? $course_id : '' }}">
             <input type="hidden" class="form-control" name="section_id" value="{{ isset($section_id) ? $section_id : '' }}">
-            <input type="file" class="mt-3" name="lesson_file" placeholder="Choose Lesson File" required>
+            <input type="file" class="mt-3" accept=".txt" name="lesson_file" placeholder="Choose Lesson File" required>
           </div>
         </div>
         <div class="modal-footer">

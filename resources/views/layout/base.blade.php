@@ -114,8 +114,8 @@
 
 <script>
   // Current Time
-  $time = new Date().toLocaleDateString();
-  $('#current-time').text($time)
+  time = new Date().toLocaleString([], {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
+  $('#current-time').text(time)
 
 </script>
 
