@@ -22,6 +22,7 @@ class CreateCoursesTable extends Migration
             $table->integer('min_speed')->nullable();
             $table->integer('max_error')->nullable();
             $table->integer('max_duration')->default(5);
+            $table->boolean('disable_backspace')->default(0);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

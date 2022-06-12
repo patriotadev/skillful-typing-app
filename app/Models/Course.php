@@ -13,5 +13,5 @@ class Course extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['teacher_id', 'course_name', 'course_type', 'min_speed', 'max_error', 'max_duration'];
+    protected $fillable = ['teacher_id', 'course_name', 'course_type', 'min_speed', 'max_error', 'max_duration', 'disable_backspace'];
 }

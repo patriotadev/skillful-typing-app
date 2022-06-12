@@ -95,6 +95,14 @@
               <label for="exampleInputEmail1">Lesson Duration</label>
               <input id="max_duration" type="number" class="form-control" name="max_duration" placeholder="Minutes">
             </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Backspace Key</label>
+              <select class="form-control" id="disable_backspace" name="disable_backspace">
+                <option value="">-- Select --</option> 
+                <option value="1">Disabled</option> 
+                <option value="0">Enabled</option> 
+              </select>
+            </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save</button>

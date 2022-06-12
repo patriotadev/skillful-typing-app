@@ -87,6 +87,23 @@
     accuracy = 0
 
     inputArray = []
+    let disableBackspace = {{ $course_disable_backspace }}
+
+    if(disableBackspace === 1) {
+        $('#input-text').on('keydown',  function() {   
+            if ((event.keyCode == 8 ||    
+            (event.keyCode == 37 && event.altKey) ||    
+            (event.keyCode == 39 && event.altKey))   
+                &&    
+            (event.srcElement.form == null || event.srcElement.isTextEdit == false)   
+            )   
+            {  
+                event.cancelBubble = true;   
+                event.returnValue = false;   
+            }   
+        })
+    }
+
     $('#input-text').on('keyup', function(e) {
         var code = e.key;
         if(code==="Enter") e.preventDefault();
