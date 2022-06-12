@@ -19,8 +19,8 @@ class GroupController extends Controller
 
         $data = [
             'title' => 'Skillful Typing | Student Static - Class',
-            'class' => Group::all(),
-            'courses' => Course::all()
+            'class' => Group::where('teacher_id', session('user_id'))->get(),
+            'courses' => Course::where('teacher_id', session('user_id'))->get()
         ];
 
         return view('admin.class', $data);
@@ -42,6 +42,7 @@ class GroupController extends Controller
         $courses_id = $request->assigned_courses;
         $courses_id_implode = implode(', ', $courses_id);
         $data = [
+            'teacher_id' => session('user_id'),
             'class_name' => $request->class_name,
             'assigned_courses' => $courses_id_implode
         ];

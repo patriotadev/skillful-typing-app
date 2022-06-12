@@ -211,4 +211,44 @@ class StudentStaticController extends Controller
 
         return $pdf->download(session('user_name') . '_' . $selectedCourse->course_name);
     }
+
+
+    public function getLessonStaticPageById($lesson_id)
+    {
+        $result = Result::where(['user_id' => session('user_id'), 'lesson_id' => $lesson_id])->first();
+
+        //
+        $class = Group::where('class_id', session('user_class'))->first();
+        $assigned_courses = explode(',', $class->assigned_courses);
+        $courses = Course::whereIn('course_id', $assigned_courses);
+        $sections = Section::whereIn('course_id', $assigned_courses);
+        $lessons = Lesson::whereIn('section_id', $sections->pluck('section_id'))->get();
+
+        $userResult = Result::where('user_id', session('user_id'));
+
+        if ($userResult->count() > 0) {
+            $data = [
+                'title' => 'Skillful Typing | Student Static',
+                'class' => $class,
+                'courses' => $courses->get(),
+                'sections' => $sections->get(),
+                'lessons' => $lessons,
+                'result' => $result,
+                // 'message' => 'Lesson result not found.'
+            ];
+
+            return view('student.student_static', $data);
+        }
+
+        $data = [
+            'title' => 'Skillful Typing | Student Static',
+            'class' => $class,
+            'courses' => $courses->get(),
+            'sections' => $sections->get(),
+            'lessons' => $lessons,
+            'message' => 'Lesson result not found.'
+        ];
+
+        return view('student.student_static', $data);
+    }
 }

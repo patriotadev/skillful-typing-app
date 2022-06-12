@@ -16,6 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::dropIfExists('groups');
         Schema::create('groups', function (Blueprint $table) {
             $table->integer('class_id')->autoIncrement();
+            $table->string('teacher_id');
             $table->string('class_name');
             $table->string('assigned_courses');
             $table->timestamp('created_at')->nullable();

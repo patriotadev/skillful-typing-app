@@ -14,5 +14,5 @@ class Lesson extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['lesson_name', 'lesson_file', 'course_id', 'section_id'];
+    protected $fillable = ['teacher_id', 'lesson_name', 'lesson_file', 'course_id', 'section_id'];
 }

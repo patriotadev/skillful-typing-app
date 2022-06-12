@@ -46,6 +46,7 @@ class LessonController extends Controller
         $file->move($destinationFolder, $fileName);
 
         $data = [
+            'teacher_id' => session('user_id'),
             'lesson_name' => $request->lesson_name,
             'lesson_file' => isset($fileName) ? $fileName : '',
             'course_id' => $request->course_id,

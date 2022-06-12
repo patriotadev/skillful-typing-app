@@ -16,6 +16,7 @@ class CreateLessonsTable extends Migration
         Schema::dropIfExists('lessons');
         Schema::create('lessons', function (Blueprint $table) {
             $table->integer('lesson_id')->autoIncrement();
+            $table->string('teacher_id');
             $table->string('lesson_name');
             $table->string('lesson_file');
             $table->integer('course_id');

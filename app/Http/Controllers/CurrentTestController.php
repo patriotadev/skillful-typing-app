@@ -50,7 +50,7 @@ class CurrentTestController extends Controller
             'class' => $class,
             'courses' => $courses->get(),
             'sections' => $sections->get(),
-            'lessons' => $lessons,
+            'lessons' => $lessons->get(),
             'last_lesson_id' => 0,
             'last_section_id' => 0,
             'last_course_id' => 0,

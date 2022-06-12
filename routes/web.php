@@ -94,12 +94,12 @@ Route::middleware([Authentications::class])->group(function () {
         Route::post('/student/tests/start', [CurrentTestController::class, 'postStudentCurrentTestStart']);
         Route::post('/student/tests/result', [CurrentTestController::class, 'postStudentTestResult']);
 
-
         Route::get('/student/statics', [StudentStaticController::class, 'index']);
         Route::get('/student/overall', [StudentStaticController::class, 'overallResult']);
         Route::post('/student/overall', [StudentStaticController::class, 'postOverallResult']);
 
         Route::post('/student/statics', [StudentStaticController::class, 'getLessonStaticById']);
         Route::post('/student/overall/pdf', [StudentStaticController::class, 'printToPdf']);
+        Route::get('/student/statics/{lesson_id}', [StudentStaticController::class, 'getLessonStaticPageById']);
     });
 });

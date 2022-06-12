@@ -17,9 +17,9 @@ class UserController extends Controller
     {
         $data = [
             'title' => 'Skillful Typing | Users Management',
-            'users' => User::where('roles', 'Student')->get(),
-            'class' => Group::all(),
-            'class_update' => Group::all(),
+            'users' => User::where(['roles' => 'Student', 'teacher_id' => session('user_id')])->get(),
+            'class' => Group::where('teacher_id', session('user_id'))->get(),
+            'class_update' => Group::where('teacher_id', session('user_id'))->get(),
         ];
 
         return view('admin.users', $data);
@@ -29,6 +29,7 @@ class UserController extends Controller
     {
         // User data
         $data = [
+            'teacher_id' => session('user_id'),
             'nim' => $request->nim,
             'fullname' => $request->fullname,
             'class' => $request->class,
@@ -39,7 +40,6 @@ class UserController extends Controller
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
             'roles' => $request->roles,
             'status' => $request->status,
-            'level' => $request->level,
         ];
 
         User::create($data);
@@ -69,7 +69,6 @@ class UserController extends Controller
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
             'roles' => $request->roles,
             'status' => $request->status,
-            'level' => $request->level,
         ];
         User::where('user_id', $request->id)->update($data);
     }
@@ -103,7 +102,6 @@ class UserController extends Controller
                 'username' => 'required',
                 'password' => 'required',
                 'confirm_pass' => 'required|same:password',
-                'level' => 'required',
                 'status' => 'required',
             ],
             [
@@ -117,7 +115,6 @@ class UserController extends Controller
                 'password.required' => 'Please input password field.',
                 'confirm_pass.required' => 'Please input confirm password field.',
                 'confirm_pass.same' => 'Confirmation password isn\'t match with password',
-                'level.required' => 'Please input level field.',
                 'status.required' => 'Please input status field.',
             ]
         );
@@ -136,7 +133,6 @@ class UserController extends Controller
             'username' => $request->username,
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
             'roles' => 'Admin',
-            'level' => $request->level,
             'status' => $request->status,
         ];
 
@@ -161,7 +157,6 @@ class UserController extends Controller
                 'username' => $user->username,
                 'password' => $user->password,
                 'status' => $user->status,
-                'level' => $user->level,
                 'status' => $user->status,
 
             ];
@@ -180,7 +175,6 @@ class UserController extends Controller
             'username' => $user->username,
             'password' => $user->password,
             'status' => $user->status,
-            'level' => $user->level,
             'status' => $user->status,
         ];
         return view('student.edit_profile', $data);
@@ -197,7 +191,6 @@ class UserController extends Controller
                     'email' => 'required',
                     'username' => 'required',
                     'confirm_new_password' => 'same:password',
-                    'level' => 'required',
                     'status' => 'required',
                 ],
                 [
@@ -206,7 +199,6 @@ class UserController extends Controller
                     'email.required' => 'Please input email field.',
                     'username.required' => 'Please input username field.',
                     'confirm_new_password.same' => 'New password isn\'t match with password',
-                    'level.required' => 'Please input level field.',
                     'status.required' => 'Please input status field.',
                 ]
             );
@@ -219,7 +211,6 @@ class UserController extends Controller
                 'username' => $request->username,
                 'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
                 'status' => $request->status,
-                'level' => $request->level,
             ];
         }
 
@@ -232,7 +223,6 @@ class UserController extends Controller
                     'email' => 'required',
                     'username' => 'required',
                     'confirm_new_password' => 'same:password',
-                    'level' => 'required',
                     'status' => 'required',
                 ],
                 [
@@ -242,13 +232,13 @@ class UserController extends Controller
                     'email.required' => 'Please input email field.',
                     'username.required' => 'Please input username field.',
                     'confirm_new_password.same' => 'New password isn\'t match with password',
-                    'level.required' => 'Please input level field.',
                     'status.required' => 'Please input status field.',
                 ]
             );
 
             $oldPass = User::where('user_id', $user_id)->first()->password;
             $data = [
+                'teacher_id' => session('user_id'),
                 'nim' => $request->nim,
                 'fullname' => $request->fullname,
                 'phone' => $request->phone,
@@ -256,7 +246,6 @@ class UserController extends Controller
                 'username' => $request->username,
                 'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
                 'status' => $request->status,
-                'level' => $request->level,
             ];
         }
 

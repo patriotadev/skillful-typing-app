@@ -19,6 +19,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'nim',
+        'teacher_id',
         'fullname',
         'class',
         'major',
@@ -28,6 +29,5 @@ class User extends Authenticatable
         'password',
         'roles',
         'status',
-        'level'
     ];
 }

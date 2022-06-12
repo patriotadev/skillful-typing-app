@@ -93,7 +93,7 @@
                   @enderror
               </div>
               </div>
-              <div class="col">
+              {{-- <div class="col">
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Level</label>
                   <select class="@error ('level') is-invalid @enderror form-control" id="level" name="level">
@@ -108,7 +108,7 @@
                   </div>
                   @enderror 
               </div>
-              </div>
+              </div> --}}
             </div>
             <div class="row">
               <div class="col">

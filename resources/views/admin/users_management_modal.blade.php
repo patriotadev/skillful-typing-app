@@ -54,7 +54,7 @@
                                     <option value="Student">Student</option>
                                 </select>
                             </div>
-                            <div class="form-group mt-3">
+                            {{-- <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Level</label>
                                 <select class="form-control" id="user_class" name="level" required>
                                     <option value="">-- Level --</option>
@@ -62,7 +62,7 @@
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Advanced">Advanced</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <label for="exampleInputEmail1">Status</label>
                             <div class="d-flex justify-content-around">
                                 <div class="form-check">
@@ -149,7 +149,7 @@
                                     <option value="Student">Student</option>
                                 </select>
                             </div>
-                            <div class="form-group mt-3">
+                            {{-- <div class="form-group mt-3">
                                 <label for="exampleFormControlSelect1">Level</label>
                                 <select class="form-control" id="level" name="level" required>
                                     <option value="">-- Level --</option>
@@ -157,7 +157,7 @@
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Advanced">Advanced</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <label for="exampleInputEmail1">Status</label>
                             <div class="d-flex justify-content-around">
                                 <div class="form-check">

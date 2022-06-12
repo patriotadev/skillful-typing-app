@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id')->autoIncrement();
+            $table->string('teacher_id')->nullable();
             $table->string('nim');
             $table->string('fullname');
             $table->string('class');
@@ -26,7 +27,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('roles');
             $table->boolean('status');
-            $table->string('level');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

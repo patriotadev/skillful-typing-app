@@ -14,5 +14,5 @@ class Group extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['class_name', 'assigned_courses'];
+    protected $fillable = ['teacher_id', 'class_name', 'assigned_courses'];
 }

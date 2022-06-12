@@ -147,7 +147,7 @@
                     title: 'Result',
                     text: `${wpm} WPM - ${accuracy}% Accuracy`,
                 }).then(function() {
-                    window.location = '/student/lessons'
+                    window.location = '/student/statics/' + {{ $lesson_id }}
                 });
             },
             error: (error) => {
@@ -157,7 +157,7 @@
                     title: 'Result',
                     text: `Can't process the result`,
                 }).then(function() {
-                    window.location = '/student/lessons'
+                    window.location = '/student/tests'
                 });
             }
             })
@@ -207,7 +207,7 @@
                     title: 'Result',
                     text: `${wpm} WPM - ${accuracy}% Accuracy`,
                 }).then(function() {
-                    window.location = '/student/test'
+                    window.location = '/student/statics/' + {{ $lesson_id }}
                 });
             },
             error: (error) => {
@@ -217,7 +217,7 @@
                     title: 'Result',
                     text: `Can't process the result`,
                 }).then(function() {
-                    window.location = '/student/test'
+                    window.location = '/student/tests'
                 });
             }
             })

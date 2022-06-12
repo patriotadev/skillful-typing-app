@@ -13,5 +13,5 @@ class Section extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $fillable = ['section_name', 'course_id'];
+    protected $fillable = ['teacher_id', 'section_name', 'course_id'];
 }

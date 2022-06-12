@@ -16,6 +16,7 @@ class CreateSectionsTable extends Migration
         Schema::dropIfExists('sections');
         Schema::create('sections', function (Blueprint $table) {
             $table->integer('section_id')->autoIncrement();
+            $table->string('teacher_id');
             $table->string('section_name');
             $table->integer('course_id');
             $table->timestamp('created_at')->nullable();

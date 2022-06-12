@@ -125,7 +125,7 @@
                             </div>
                             @enderror 
                         </div>
-                        <div class="form-group mt-3">
+                        {{-- <div class="form-group mt-3">
                             <label for="exampleFormControlSelect1">Level</label>
                             <select class="@error ('level') is-invalid @enderror form-control" id="level" name="level">
                                 <option value="">-- Level --</option>
@@ -138,7 +138,7 @@
                                 {{ $message }}
                             </div>
                             @enderror 
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Status</label>
                             <div class="d-flex justify-content-around">

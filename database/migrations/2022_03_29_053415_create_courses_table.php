@@ -16,6 +16,7 @@ class CreateCoursesTable extends Migration
         Schema::dropIfExists('courses');
         Schema::create('courses', function (Blueprint $table) {
             $table->integer('course_id')->autoIncrement();
+            $table->string('teacher_id');
             $table->string('course_name');
             $table->string('course_type')->default('Lesson');
             $table->integer('min_speed')->nullable();

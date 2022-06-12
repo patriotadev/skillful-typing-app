@@ -35,7 +35,7 @@
                <th>Name</th>
                <th>Class</th>
                <th>Email</th>
-               <th>Level</th>
+               {{-- <th>Level</th> --}}
                <th>Action</th>
              </tr>
              </thead>
@@ -47,7 +47,7 @@
                <td>{{ $user->fullname }}</td>
                <td>{{ isset(App\Models\Group::where('class_id', $user->class)->first()->class_name) ? App\Models\Group::where('class_id', $user->class)->first()->class_name : '' }}</td>
                <td>{{ $user->email }}</td>
-               <td>{{ $user->level }}</td>
+               {{-- <td>{{ $user->level }}</td> --}}
                <td>
                  <a onclick="openUpdateUserModal(
                    `{{$user->user_id}}`, `{{$user->nim}}`, `{{$user->fullname}}`, `{{$user->class}}`, `{{$user->major}}`, `{{$user->phone}}`, `{{$user->email}}`,

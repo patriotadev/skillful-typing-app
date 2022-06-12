@@ -26,6 +26,7 @@ class SectionController extends Controller
     {
         //
         $data = [
+            'teacher_id' => session('user_id'),
             'section_name' => $request->section_name,
             'course_id' => $request->course_id
         ];

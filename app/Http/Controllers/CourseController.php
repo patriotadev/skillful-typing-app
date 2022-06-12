@@ -14,7 +14,7 @@ class CourseController extends Controller
         //
         $data = [
             'title' => 'Skillful Typing | Lesson Editor - Courses',
-            'courses' => Course::all()
+            'courses' => Course::where('teacher_id', session('user_id'))->get()
         ];
 
         return view('admin.courses', $data);
@@ -36,6 +36,7 @@ class CourseController extends Controller
     {
         //
         $data = [
+            'teacher_id' => session('user_id'),
             'course_name' => $request->course_name,
             'course_type' => $request->course_type
         ];

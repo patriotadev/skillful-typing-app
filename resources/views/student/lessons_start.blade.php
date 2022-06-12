@@ -80,8 +80,13 @@
 
     lessonText = $('.lesson-text').text().split(" ")
     lessonText.splice(lessonText.length - 1, 1)
+    correctWords = 0;
+    wpm = 0
+    incorrectWords = lessonText.length
+    minutes = '<?= $course_duration; ?>'
+    accuracy = 0
 
-    let inputArray = []
+    inputArray = []
     $('#input-text').on('keyup', function(e) {
         var code = e.key;
         if(code==="Enter") e.preventDefault();
@@ -147,7 +152,7 @@
                     title: 'Result',
                     text: `${wpm} WPM - ${accuracy}% Accuracy`,
                 }).then(function() {
-                    window.location = '/student/lessons'
+                    window.location = '/student/statics/' + {{ $lesson_id }}
                 });
             },
             error: (error) => {
@@ -178,15 +183,13 @@
         minutes = (seconds > 59) ? ++minutes : minutes;
         // if (minutes < 0) clearInterval(interval);
 
-        if (minutes == <?= $course_duration; ?>) {
-            console.log("===" + this.totalWords)
-            console.log(this.correctValue)
+        if (minutes === <?= $course_duration; ?>) {
             clearInterval(interval);
             $.ajax({
             url: '/student/lessons/result',
             data: {
                 lesson_id: $('#lesson_id').val(),
-                total_words: totalWords.toString(),
+                total_words: lessonText.length,
                 minutes: minutes.toString(),
                 correct_words: correctWords.toString(),
                 incorrect_words: incorrectWords.toString(),
@@ -207,7 +210,7 @@
                     title: 'Result',
                     text: `${wpm} WPM - ${accuracy}% Accuracy`,
                 }).then(function() {
-                    window.location = '/student/lessons'
+                    window.location = '/student/statics/' + {{ $lesson_id }}
                 });
             },
             error: (error) => {
