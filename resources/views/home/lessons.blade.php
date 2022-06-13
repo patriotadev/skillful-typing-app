@@ -56,10 +56,10 @@
                     <div class="col">
                       <label for="" class="mt-2">Select Lesson</label>
                       <div class="form-group">
-                        <select class="form-control" name="lesson" id="flexRadioDefault2" required>
+                        <select class="form-control" onchange="showConfigure()" name="lesson" id="flexRadioDefault2" required>
                           <option value="">-- Lessons --</option>
                           @foreach ($lessons as $lesson)
-                            <option value="{{$lesson->lesson_id}}">
+                            <option backspace={{App\Models\Course::where('course_id', $lesson->course_id)->first()->disable_backspace}} duration={{ App\Models\Course::where('course_id', $lesson->course_id)->first()->max_duration}} allow="{{ App\Models\Course::where('course_id', $lesson->course_id)->first()->allow_configure }}" value="{{$lesson->lesson_id}}">
                             {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
                             {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
                             {{ $lesson->lesson_name }}
@@ -74,8 +74,8 @@
          <!-- /.card-body -->
         <div class="card-footer">
              <div class="d-flex justify-content-end">
-                 {{-- <button class="btn btn-primary">Start</button> --}}
-                 <button type="submit" class="btn btn-primary">Start</button>
+                 <button onclick="openConfigureModal()" type="button" id="setting-btn" class="invisible btn btn-warning mr-2">Setting</button>
+                 <button id="start-btn" type="submit" class="btn btn-primary">Start</button>
              </div>
          </div>
         </form>
@@ -89,4 +89,31 @@
   </div>
 <!-- /.content -->
 
+@include('home.configure_modal')
+@endsection
+
+
+@section('js')
+  <script>
+      const showConfigure = () => {
+        var option = $('option:selected').attr('allow');
+        var duration = $('option:selected').attr('duration');
+        var backspace = $('option:selected').attr('backspace');
+        var id = $('option:selected').val();
+
+        $('#modal-configure-course #lesson_id').val(id)
+        $('#modal-configure-course #max_duration').val(duration)
+        $('#modal-configure-course #disable_backspace').val(backspace)
+
+        if (option !== "0") {
+          $('#setting-btn').removeClass('invisible')
+        } else {
+          $('#setting-btn').addClass('invisible')
+        }
+      }
+
+      const openConfigureModal = () => {
+        $('#modal-configure-course').modal('show')
+      }
+  </script>
 @endsection

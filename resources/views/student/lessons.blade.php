@@ -30,36 +30,14 @@
          <!-- /.card-header -->
          <div class="card-body">
             <div class="container">
-                {{-- <div class="row">
-                    <div class="col">
-                        <div class="form-group mt-3">
-                            <label for="exampleFormControlSelect1">Courses</label>
-                            <select class="form-control" id="course" name="course" required>
-                                @foreach ($courses as $course)
-                                    <option course_id={{ $course->course_id }} {{ $course->course_id == $last_course_id ? 'selected' : '' }} value="{{ $course->course_id }}">{{ $course->course_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group mt-3">
-                            <label for="exampleFormControlSelect1">Sections</label>
-                            <select class="form-control" id="section" name="section" required>
-                                @foreach ($sections as $section)    
-                                    <option course_id="{{ $section->course_id }}" {{ $section->section_id == $last_section_id ? 'selected' : '' }} value="{{ $section->section_id }}">{{ $section->section_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="row">
                     <div class="col">
                       <label for="" class="mt-2">Select Lesson</label>
                       <div class="form-group">
-                        <select class="form-control" type="radio" name="lesson" id="flexRadioDefault2" required>
+                        <select class="form-control" onchange="showConfigure()" type="radio" name="lesson" id="flexRadioDefault2" required>
                           <option value="">-- Lessons --</option>
                           @foreach ($lessons as $lesson)
-                          <option value="{{$lesson->lesson_id}}">
+                          <option backspace={{App\Models\Course::where('course_id', $lesson->course_id)->first()->disable_backspace}} duration={{ App\Models\Course::where('course_id', $lesson->course_id)->first()->max_duration}} allow="{{ App\Models\Course::where('course_id', $lesson->course_id)->first()->allow_configure }}" value="{{$lesson->lesson_id}}">
                             {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
                             {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
                             {{ $lesson->lesson_name }}
@@ -97,9 +75,9 @@
          <!-- /.card-body -->
         <div class="card-footer">
              <div class="d-flex justify-content-end">
-                 {{-- <button class="btn btn-primary">Start</button> --}}
+              <button onclick="openConfigureModal()" type="button" id="setting-btn" class="invisible btn btn-warning mr-2">Setting</button>
                  <button type="submit" class="btn btn-primary">Start</button>
-             </div>
+              </div>
          </div>
         </form>
         </div>
@@ -111,26 +89,31 @@
     <!-- /.container-fluid -->
   </div>
 <!-- /.content -->
-
+@include('student.configure_modal')
 @endsection
 
 
 @section('js')
     <script>
-      $(document).ready(() => {
-        course_id = null
-        section_id = null
+      const showConfigure = () => {
+        var option = $('option:selected').attr('allow');
+        var duration = $('option:selected').attr('duration');
+        var backspace = $('option:selected').attr('backspace');
+        var id = $('option:selected').val();
 
-        $('#course').on('change', () => {
-          this.course_id = $('#course').val()
-          console.log(this.course_id)
-        })
+        $('#modal-configure-course #lesson_id').val(id)
+        $('#modal-configure-course #max_duration').val(duration)
+        $('#modal-configure-course #disable_backspace').val(backspace)
 
-        $('#section').on('change', () => {
-          this.section_id = $('#section').val()
-          console.log(this.section_id)
-        })
+        if (option !== "0") {
+          $('#setting-btn').removeClass('invisible')
+        } else {
+          $('#setting-btn').addClass('invisible')
+        }
+      }
 
-      });
+      const openConfigureModal = () => {
+        $('#modal-configure-course').modal('show')
+      }
     </script>
 @endsection

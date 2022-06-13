@@ -44,7 +44,7 @@
                   <td>{{ $course->course_name }}</td>
                   <td>{{ $course->course_type }}</td>
                   <td>
-                    <a onclick="openSettingCourseModal(`{{$course->course_id}}`, `{{$course->course_type}}`, `{{$course->min_speed}}`, `{{$course->max_error}}`, `{{$course->max_duration}}`, `{{$course->disable_backspace}}`)" class="badge badge-warning">Setting</a>
+                    <a onclick="openSettingCourseModal(`{{$course->course_id}}`, `{{$course->course_type}}`, `{{$course->min_speed}}`, `{{$course->max_error}}`, `{{$course->max_duration}}`, `{{$course->disable_backspace}}`, `{{$course->allow_configure}}`)" class="badge badge-warning">Setting</a>
                     <a href="/admin/courses/{{$course->course_id}}/sections" class="badge badge-primary">View</a>
                     <a onclick="openUpdateCourseModal(`{{$course->course_id}}`, `{{$course->course_name}}`)" class="badge badge-info">Edit</a>
                     <a onclick="openDeleteCourseModal({{$course->course_id}})" class="badge badge-danger">Delete</a>
@@ -72,11 +72,12 @@
 @section('js')
     <script type="text/javascript">
 
-      const openSettingCourseModal = (id, type, wpm, error, duration, backspace) => {
+      const openSettingCourseModal = (id, type, wpm, error, duration, backspace, configure) => {
         $('#modal-setting-course').modal('show')
         $('#modal-setting-course #course_id').val(id)
         $('#modal-setting-course #course_type').val(type)
         $('#modal-setting-course #disable_backspace').val(backspace)
+        $('#modal-setting-course #allow_configure').val(configure)
         $('#modal-setting-course #max_duration').val(duration)
 
         if (wpm !== null) {

@@ -70,7 +70,8 @@ class CourseController extends Controller
             'min_speed' => $request->min_speed,
             'max_error' => $request->max_error,
             'max_duration' => $request->max_duration,
-            'disable_backspace' => $request->disable_backspace
+            'disable_backspace' => $request->disable_backspace,
+            'allow_configure' => $request->allow_configure
         ];
 
         Course::where('course_id', $course_id)->update($data);

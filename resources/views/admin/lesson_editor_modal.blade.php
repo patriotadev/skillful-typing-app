@@ -103,6 +103,14 @@
                 <option value="0">Enabled</option> 
               </select>
             </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Allow Student Configure Course</label>
+              <select class="form-control" id="allow_configure" name="allow_configure">
+                <option value="">-- Select --</option> 
+                <option value="1">Allow</option> 
+                <option value="0">Don't Allow</option> 
+              </select>
+            </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save</button>

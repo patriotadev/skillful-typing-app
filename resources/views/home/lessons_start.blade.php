@@ -58,7 +58,7 @@
          <!-- /.card-body -->
          <div class="card-footer">
                  <div class="d-flex justify-content-end">
-                     <a href="/student/lessons" class="btn btn-warning mr-3">Back</a>
+                     <a href="/" class="btn btn-warning mr-3">Back</a>
                      {{-- <button onclick="start()" id="start-button" class="btn btn-danger">Start</button> --}}
                  </div>
          </div>
@@ -80,9 +80,30 @@
 
     lessonText = $('.lesson-text').text().split(" ")
     lessonText.splice(lessonText.length - 1, 1)
-    console.log(lessonText)
+    correctWords = 0;
+    wpm = 0
+    incorrectWords = lessonText.length
+    minutes = '<?= $course_duration; ?>'
+    accuracy = 0
 
     let inputArray = []
+    let disableBackspace = {{ $course_disable_backspace }}
+
+    if(disableBackspace === 1) {
+        $('#input-text').on('keydown',  function() {   
+            if ((event.keyCode == 8 ||    
+            (event.keyCode == 37 && event.altKey) ||    
+            (event.keyCode == 39 && event.altKey))   
+                &&    
+            (event.srcElement.form == null || event.srcElement.isTextEdit == false)   
+            )   
+            {  
+                event.cancelBubble = true;   
+                event.returnValue = false;   
+            }   
+        })
+    }
+
     $('#input-text').on('keyup', function(e) {
         var code = e.key;
         if(code==="Enter") e.preventDefault();
@@ -152,7 +173,7 @@
         minutes = (seconds > 59) ? ++minutes : minutes;
         // if (minutes < 0) clearInterval(interval);
 
-        if (minutes == 1) {
+        if (minutes == <?= $course_duration; ?>) {
             console.log("Waktu Habis!!")
 
             console.log(this.correctValue)

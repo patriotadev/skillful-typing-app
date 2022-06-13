@@ -65,8 +65,18 @@ class CurrentTestController extends Controller
         $lesson_text_array = explode(' ', $lesson_text_from_file);
 
         $lesson_course_id = Lesson::where('lesson_id', $request->lesson)->first()->course_id;
-        $course_duration = Course::where('course_id', $lesson_course_id)->first()->max_duration;
-        $course_disable_backspace = Course::where('course_id', $lesson_course_id)->first()->disable_backspace;
+
+        if ($request->max_duration) {
+            $course_duration = $request->max_duration;
+        } else {
+            $course_duration = Course::where('course_id', $lesson_course_id)->first()->max_duration;
+        }
+
+        if ($request->disable_backspace) {
+            $course_disable_backspace = $request->disable_backspace;
+        } else {
+            $course_disable_backspace = Course::where('course_id', $lesson_course_id)->first()->disable_backspace;
+        }
 
         $data = [
             'title' => 'Skillful Typing | Current Lesson',
