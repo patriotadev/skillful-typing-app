@@ -58,6 +58,7 @@
                     <ul>
                         <li>Speed : {{ $avg_speed }} WPM</li>
                         <li>Accuracy : {{ $avg_accuracy }}%</li>
+                        <li>Slowdown : {{ $avg_slowdown }}%</li>
                         <li>Error Words : {{ $error_words }} Words</li>
                     </ul>
                 </div>
@@ -106,7 +107,7 @@
    */
   'use strict';
   var data = {
-    labels: ['All Lessons', 'Lessons Completed', 'Speed Average', 'Accuracy Average', 'Error Words', 'Time Spend', 'Words Typed'],
+    labels: ['All Lessons', 'Lessons Completed', 'Speed Average', 'Accuracy Average', 'Slowdown Average', 'Error Words', 'Time Spend', 'Words Typed'],
     datasets: [{
       label: '# <?= isset($selected_course) ? $selected_course->course_name : ''; ?>',
       data: [
@@ -114,6 +115,7 @@
         <?= isset($lessons_completed) ? $lessons_completed : 0; ?>, 
         <?= isset($avg_speed) ? $avg_speed : 0; ?>, 
         <?= isset($avg_accuracy) ? $avg_accuracy : 0; ?>, 
+        <?= isset($avg_slowdown) ? $avg_slowdown : 0; ?>, 
         <?= isset($error_words) ? $error_words : 0; ?>, 
         <?= isset($time_spend) ? $time_spend : 0; ?>, 
         <?= isset($words_typed) ? $words_typed : 0; ?>

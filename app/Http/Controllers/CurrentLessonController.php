@@ -67,9 +67,10 @@ class CurrentLessonController extends Controller
     {
         $lesson_file_name = Lesson::where('lesson_id', $request->lesson)->pluck('lesson_file')->first();
         $lesson_text_from_file = Storage::disk('local')->get('public/' . $lesson_file_name);
-        $lesson_text_array = explode(' ', $lesson_text_from_file);
+        $lesson_text_array = preg_split('/[\s]+/', $lesson_text_from_file);
 
         $lesson_course_id = Lesson::where('lesson_id', $request->lesson)->first()->course_id;
+        $lesson_slowdown = Course::where('course_id', $lesson_course_id)->first()->max_slowdown;
 
         if ($request->max_duration) {
             $course_duration = $request->max_duration;
@@ -83,11 +84,18 @@ class CurrentLessonController extends Controller
             $course_disable_backspace = Course::where('course_id', $lesson_course_id)->first()->disable_backspace;
         }
 
+        if ($request->max_slowdown) {
+            $lesson_slowdown = $request->max_slowdown;
+        } else {
+            $$lesson_slowdown = Course::where('course_id', $lesson_course_id)->first()->max_slowdown;
+        }
+
         $data = [
             'title' => 'Skillful Typing | Current Lesson',
             'lesson_name' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_name')->first(),
             'lesson_id' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_id')->first(),
             'lesson_text' => $lesson_text_array,
+            'max_slowdown' => $lesson_slowdown,
             'course_duration' => $course_duration,
             'course_disable_backspace' => $course_disable_backspace
         ];
@@ -102,10 +110,13 @@ class CurrentLessonController extends Controller
             'lesson_id' => $request->lesson_id,
             'total_words' => $request->total_words,
             'minutes' => $request->minutes,
+            'duration' => $request->duration,
             'correct_words' => $request->correct_words,
             'incorrect_words' => $request->incorrect_words,
+            'error_words' => $request->error_words,
             'wpm' => $request->wpm,
             'accuracy' => $request->accuracy,
+            'slowdown' => $request->slowdown,
             'overall_rating' => $request->overall_rating,
             'type' => 'Lesson'
         ];
@@ -130,7 +141,7 @@ class CurrentLessonController extends Controller
             'title' => 'Skillful Typing | Current Lessons',
             'courses' => $courses->get(),
             'sections' => $sections->get(),
-            'lessons' => $lessons->get()
+            'lessons' => $lessons->get()->take(3)
         ];
 
         return view('home.lessons', $data);
@@ -140,9 +151,10 @@ class CurrentLessonController extends Controller
     {
         $lesson_file_name = Lesson::where('lesson_id', $request->lesson)->pluck('lesson_file')->first();
         $lesson_text_from_file = Storage::disk('local')->get('public/' . $lesson_file_name);
-        $lesson_text_array = explode(' ', $lesson_text_from_file);
+        $lesson_text_array = preg_split('/[\s]+/', $lesson_text_from_file);
 
         $lesson_course_id = Lesson::where('lesson_id', $request->lesson)->first()->course_id;
+        $lesson_slowdown = Course::where('course_id', $lesson_course_id)->first()->max_slowdown;
 
         if ($request->max_duration) {
             $course_duration = $request->max_duration;
@@ -156,11 +168,18 @@ class CurrentLessonController extends Controller
             $course_disable_backspace = Course::where('course_id', $lesson_course_id)->first()->disable_backspace;
         }
 
+        if ($request->max_slowdown) {
+            $lesson_slowdown = $request->max_slowdown;
+        } else {
+            $$lesson_slowdown = Course::where('course_id', $lesson_course_id)->first()->max_slowdown;
+        }
+
         $data = [
             'title' => 'Skillful Typing | Current Lesson',
             'lesson_name' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_name')->first(),
             'lesson_id' => Lesson::where('lesson_id', $request->lesson)->pluck('lesson_id')->first(),
             'lesson_text' => $lesson_text_array,
+            'max_slowdown' => $lesson_slowdown,
             'course_duration' => $course_duration,
             'course_disable_backspace' => $course_disable_backspace
         ];

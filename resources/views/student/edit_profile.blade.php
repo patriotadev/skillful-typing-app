@@ -59,15 +59,15 @@
                 </div>
                 </div>
                 <div class="col">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input value="{{ $email }}" type="text" class="@error ('email') is-invalid @enderror form-control mb-2" name="email" id="email" placeholder="Enter Email">                       
-                    @error ('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Username</label>
+                  <input value="{{ $username }}" pattern="[a-z0-9_\.]+" type="text" class="@error ('username') is-invalid @enderror form-control mb-2" name="username" id="username" placeholder="Enter Username">                       
+                  @error ('username')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                  @enderror
+              </div>
                 </div>
             </div>
             <div class="row">
@@ -84,13 +84,42 @@
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Username</label>
-                  <input value="{{ $username }}" type="text" class="@error ('username') is-invalid @enderror form-control mb-2" name="username" id="username" placeholder="Enter Username">                       
-                  @error ('username')
+                  <label for="exampleInputEmail1">Email</label>
+                  <input value="{{ $email }}" type="email" class="@error ('email') is-invalid @enderror form-control mb-2" name="email" id="email" placeholder="Enter Email">                       
+                  @error ('email')
                       <div class="invalid-feedback">
                           {{ $message }}
                       </div>
                   @enderror
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Status</label>
+                  <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                          <input {{ $status == 1 ? 'checked' : '' }} class="@error ('status') is-invalid @enderror form-check-input status" type="radio" id="status_active" name="status" value="1">
+                          <label class="form-check-label" for="exampleRadios1">
+                            Active
+                          </label>
+                          @error ('status')
+                          <div class="invalid-feedback">
+                              {{ $message }}
+                          </div>
+                          @enderror
+                      </div>
+                      <div class="form-check">
+                          <input {{ $status == 0 ? 'checked' : '' }} class="@error ('status') is-invalid @enderror form-check-input status" type="radio" id="status_not_active" name="status" value="0">
+                          <label class="form-check-label" for="exampleRadios1">
+                            Not Active
+                          </label>
+                          @error ('status')
+                          <div class="invalid-feedback">
+                              {{ $message }}
+                          </div>
+                          @enderror
+                      </div>
+                  </div>
               </div>
               </div>
               {{-- <div class="col">
@@ -134,33 +163,7 @@
               </div>
               </div>
               <div class="col">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Status</label>
-                  <div class="d-flex justify-content-around">
-                      <div class="form-check">
-                          <input {{ $status == 1 ? 'checked' : '' }} class="@error ('status') is-invalid @enderror form-check-input status" type="radio" id="status_active" name="status" value="1">
-                          <label class="form-check-label" for="exampleRadios1">
-                            Active
-                          </label>
-                          @error ('status')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                          @enderror
-                      </div>
-                      <div class="form-check">
-                          <input {{ $status == 0 ? 'checked' : '' }} class="@error ('status') is-invalid @enderror form-check-input status" type="radio" id="status_not_active" name="status" value="0">
-                          <label class="form-check-label" for="exampleRadios1">
-                            Not Active
-                          </label>
-                          @error ('status')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                          @enderror
-                      </div>
-                  </div>
-              </div>
+                
               </div>
             </div>
             </div>

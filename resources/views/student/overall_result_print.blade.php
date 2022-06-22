@@ -13,21 +13,47 @@
         <div class="card-body">
            <div class="container">
                @isset($lessons_completed)
+
                <div class="row mt-5">
-                 <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
-                 <canvas id="lineChart"></canvas>
-                </div>
+                <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
+               </div>
+
+               <table style="width:100%">
+                 <tr>
+                   <th>Lesson</th>
+                   <th>Speed</th>
+                   <th>Accuracy</th>
+                   <th>Slowdown</th>
+                   <th>Time</th>
+                   <th>Duration</th>
+                   <th>Date</th>
+                  </tr>
+                  @foreach ($all_lesson_result as $lesson)
+                      <tr>
+                        <td>{{ App\Models\Lesson::where('lesson_id', $lesson->lesson_id)->first()->lesson_name }}</td>
+                        <td>{{ $lesson->wpm }} WPM</td>
+                        <td>{{ $lesson->accuracy }} %</td>
+                        <td>{{ $lesson->slowdown }} %</td>
+                        <td>{{ $lesson->minutes }} Minutes</td>
+                        <td>{{ $lesson->duration }} Minutes</td>
+                        <td>{{ $lesson->updated_at }}</td>
+                      </tr>
+                  @endforeach
+                  </table>
+                  <br>
+                  <br>
+
                 <div class="row-result row mt-4">
                   <div class="col">
-                  <label for="">Course</label>
+                  <label for="">Total</label>
                     <ul>
                         <li>Speed : {{ $avg_speed }} WPM</li>
                         <li>Accuracy : {{ $avg_accuracy }}%</li>
+                        <li>Slowdown : {{ $avg_slowdown }}%</li>
                         <li>Error Words : {{ $error_words }} Words</li>
                     </ul>
                 </div>
                 <div class="col">
-                  <label for="">Total</label>
                   <ul>
                     <li>Lesson Completed : {{ $lessons_completed }}</li>
                     <li>Time Spend : {{ $time_spend }} Minutes</li>
@@ -48,6 +74,12 @@
   </div>
   </div>
 <!-- /.content -->
+
+<style>
+  table, th, td {
+    border:1px solid black;
+  }
+</style>
 
 <script src="{{ asset('admin_lte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('admin_lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }} "></script>

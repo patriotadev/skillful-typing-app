@@ -14,7 +14,11 @@
             <input type="hidden" name="lesson" id="lesson_id" value="">
             <div class="form-group">
               <label for="exampleInputEmail1">Course Duration</label>
-              <input type="number" min="1" id="max_duration" class="form-control" name="max_duration" placeholder="Minutes" required>
+              <input type="number" min="1" id="max_duration" class="form-control" step=".01" name="max_duration" placeholder="Minutes" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Slowdown aren't more than</label>
+              <input id="max_slowdown" min="1" type="number" class="form-control" name="max_slowdown" placeholder="Seconds">
             </div>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Backspace Key</label>

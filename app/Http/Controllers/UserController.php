@@ -28,6 +28,13 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // User data
+
+        $request->validate(
+            [
+                'username' => 'required|unique:users,username'
+            ]
+        );
+
         $data = [
             'teacher_id' => session('user_id'),
             'nim' => $request->nim,
@@ -38,26 +45,22 @@ class UserController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
+            'plain_password' => $request->password,
             'roles' => $request->roles,
             'status' => $request->status,
         ];
 
         User::create($data);
-
-        // Get current lesson for new user
-        // $class = Group::where('class_id', $request->class)->first();
-        // $assigned_courses = explode(',', $class->assigned_courses);
-        // $sections = Section::where('course_id', $assigned_courses[0])->first;
-        // $lessons = Lesson::where('section_id', $sections->section_id)->get();
-
-        // CurrentLesson::create([
-        //     'user_id' => $request->nim,
-        //     'user_lesson'
-        // ])
     }
 
     public function update(Request $request)
     {
+        $request->validate(
+            [
+                'username' => 'required|unique:users,username,' . $request->id . ',user_id'
+            ]
+        );
+
         $data = [
             'nim' => $request->nim,
             'fullname' => $request->fullname,
@@ -67,6 +70,7 @@ class UserController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
+            'plain_password' => $request->password,
             'roles' => $request->roles,
             'status' => $request->status,
         ];
@@ -99,7 +103,7 @@ class UserController extends Controller
                 'city' => 'required',
                 'phone' => 'required',
                 'email' => 'required',
-                'username' => 'required',
+                'username' => 'required|unique:users,username',
                 'password' => 'required',
                 'confirm_pass' => 'required|same:password',
                 'status' => 'required',
@@ -112,6 +116,7 @@ class UserController extends Controller
                 'phone.required' => 'Please input phone field.',
                 'email.required' => 'Please input email field.',
                 'username.required' => 'Please input username field.',
+                'username.unique' => 'Username has already taken.',
                 'password.required' => 'Please input password field.',
                 'confirm_pass.required' => 'Please input confirm password field.',
                 'confirm_pass.same' => 'Confirmation password isn\'t match with password',
@@ -132,6 +137,7 @@ class UserController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'password' => password_hash($request->password, PASSWORD_DEFAULT),
+            'plain_password' => $request->password,
             'roles' => 'Admin',
             'status' => $request->status,
         ];
@@ -156,6 +162,7 @@ class UserController extends Controller
                 'email' => $user->email,
                 'username' => $user->username,
                 'password' => $user->password,
+                'plain_password' => $user->plain_password,
                 'status' => $user->status,
                 'status' => $user->status,
 
@@ -174,6 +181,7 @@ class UserController extends Controller
             'email' => $user->email,
             'username' => $user->username,
             'password' => $user->password,
+            'plain_password' => $user->plain_password,
             'status' => $user->status,
             'status' => $user->status,
         ];
@@ -189,7 +197,7 @@ class UserController extends Controller
                     'fullname' => 'required',
                     'phone' => 'required',
                     'email' => 'required',
-                    'username' => 'required',
+                    'username' => 'required|unique:users,username,' . $user_id . ',user_id',
                     'confirm_new_password' => 'same:password',
                     'status' => 'required',
                 ],
@@ -198,6 +206,7 @@ class UserController extends Controller
                     'phone.required' => 'Please input phone field.',
                     'email.required' => 'Please input email field.',
                     'username.required' => 'Please input username field.',
+                    'username.unique' => 'Username has already taken.',
                     'confirm_new_password.same' => 'New password isn\'t match with password',
                     'status.required' => 'Please input status field.',
                 ]
@@ -210,6 +219,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'username' => $request->username,
                 'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
+                'plain_password' => $request->password != null ? $request->password : User::where('user_id', $user_id)->first()->plain_password,
                 'status' => $request->status,
             ];
         }
@@ -221,7 +231,7 @@ class UserController extends Controller
                     'fullname' => 'required',
                     'phone' => 'required',
                     'email' => 'required',
-                    'username' => 'required',
+                    'username' => 'required|unique:users,username,' . $user_id . ',user_id',
                     'confirm_new_password' => 'same:password',
                     'status' => 'required',
                 ],
@@ -231,6 +241,7 @@ class UserController extends Controller
                     'phone.required' => 'Please input phone field.',
                     'email.required' => 'Please input email field.',
                     'username.required' => 'Please input username field.',
+                    'username.unique' => 'Username has already taken.',
                     'confirm_new_password.same' => 'New password isn\'t match with password',
                     'status.required' => 'Please input status field.',
                 ]
@@ -238,13 +249,13 @@ class UserController extends Controller
 
             $oldPass = User::where('user_id', $user_id)->first()->password;
             $data = [
-                'teacher_id' => session('user_id'),
                 'nim' => $request->nim,
                 'fullname' => $request->fullname,
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'username' => $request->username,
                 'password' => $request->password != null ? password_hash($request->confirm_new_password, PASSWORD_DEFAULT) : $oldPass,
+                'plain_password' => $request->password != null ? $request->password : User::where('user_id', $user_id)->first()->plain_password,
                 'status' => $request->status,
             ];
         }

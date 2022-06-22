@@ -89,7 +89,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="text" class="@error ('email') is-invalid @enderror form-control mb-2" name="email" id="email" placeholder="Enter Email">       
+                            <input type="email" class="@error ('email') is-invalid @enderror form-control mb-2" name="email" id="email" placeholder="Enter Email">       
                             @error ('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -100,7 +100,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" class="@error ('username') is-invalid @enderror form-control mb-2" name="username" id="username" placeholder="Enter Username">                       
+                            <input type="text" pattern="[a-z0-9_\.]+" class="@error ('username') is-invalid @enderror form-control mb-2" name="username" id="username" placeholder="Enter Username">                       
                             @error ('username')
                             <div class="invalid-feedback">
                                 {{ $message }}

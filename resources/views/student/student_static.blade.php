@@ -53,7 +53,13 @@
                       <span>{{ $message }}</span>
                     </div>      
                     @endisset
-                    @isset($result) 
+                    @isset($result)
+                    <div class="row ml-2 mt-5">
+                      <span class="font-weight-bold">Error Overview</span>
+                    </div> 
+                    <div class="row ml-2 mt-2">
+                      <p>{{ $result->error_words != null ? $result->error_words : null }}</p>
+                    </div> 
                     <div class="row ml-2 mt-5">
                       <div>
                         <h4>{{ $result->wpm }} WPM - {{ $result->accuracy }}% Accuracy</h4>
@@ -176,7 +182,7 @@
   };
   var doughnutPieData = {
     datasets: [{
-      data: [<?= isset($result) ? $result->accuracy : 0; ?>, 100],
+      data: [<?= isset($result) ? $result->accuracy : 0; ?>, <?= isset($result) ? $result->slowdown : 0; ?>],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',
@@ -198,7 +204,7 @@
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
       'Accuracy',
-      'Total',
+      'Slowdown',
     ]
   };
   var doughnutPieOptions = {

@@ -19,10 +19,13 @@ class CreateResultsTable extends Migration
             $table->integer('lesson_id');
             $table->string('total_words');
             $table->string('minutes');
+            $table->string('duration');
             $table->string('correct_words');
             $table->string('incorrect_words');
+            $table->string('error_words', 512)->nullable()->default(null);
             $table->string('wpm');
             $table->string('accuracy');
+            $table->string('slowdown');
             $table->string('overall_rating');
             $table->string('type');
             $table->timestamp('created_at')->nullable();

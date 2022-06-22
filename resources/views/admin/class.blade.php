@@ -86,7 +86,8 @@
           },
           success : () => {
             msg('success', 'Class has been added!')
-            window.location = '/admin/class'
+            // window.location = '/admin/class'
+            location.reload();
           },
           error: (error) => {
             msg('error', 'Failed to add the class!')
@@ -120,7 +121,8 @@
           },
           success : () => {
             msg('success', 'Class has been updated!')
-            window.location = '/admin/class'
+            // window.location = '/admin/class'
+            location.reload();
           },
           error: (error) => {
           msg('error', 'Failed to update the class!')

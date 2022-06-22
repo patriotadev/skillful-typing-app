@@ -68,7 +68,7 @@ class CourseController extends Controller
         $data = [
             'course_type' => $request->course_type,
             'min_speed' => $request->min_speed,
-            'max_error' => $request->max_error,
+            'max_slowdown' => $request->max_slowdown,
             'max_duration' => $request->max_duration,
             'disable_backspace' => $request->disable_backspace,
             'allow_configure' => $request->allow_configure

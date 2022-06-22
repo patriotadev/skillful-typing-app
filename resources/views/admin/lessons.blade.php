@@ -25,6 +25,8 @@
        <div class="card">
          <div class="card-header">
            <h3 class="card-title">Lesson Table</h3>
+           <br>
+            <a href="/admin/courses/{{$course_id}}/sections" class="btn btn-warning">&larr; Back</a>
          </div>
          <!-- /.card-header -->
          <div class="card-body">

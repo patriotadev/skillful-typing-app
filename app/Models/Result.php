@@ -19,10 +19,13 @@ class Result extends Model
         'lesson_id',
         'total_words',
         'minutes',
+        'duration',
         'correct_words',
         'incorrect_words',
+        'error_words',
         'wpm',
         'accuracy',
+        'slowdown',
         'overall_rating',
         'type'
     ];

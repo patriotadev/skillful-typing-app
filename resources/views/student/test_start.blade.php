@@ -37,11 +37,11 @@
          </div>
          <!-- /.card-header -->
          <div class="card-body">
-            <div class="container d-flex justify-content-center mb-5">
+            <div class="container text-container d-flex justify-content-center mb-5" style="overflow-y: scroll;">
                 <input type="hidden" id="lesson_id" value="{{ $lesson_id }}">
                 <div class="row">
                     @for ($i = 0; $i < count($lesson_text); $i++)
-                        <h1 class="lesson-text mr-3" id="text{{$i}}">{{$lesson_text[$i]}} </h1>  
+                        <h1 style="height: fit-content;" class="lesson-text mr-3" id="text{{$i}}">{{$lesson_text[$i]}} </h1>  
                     @endfor
                 </div>
             </div>
@@ -78,8 +78,13 @@
 
 <script type="text/javascript">
 
-    lessonText = $('.lesson-text').text().split(" ")
+    lessonText = $('.lesson-text').text().split(/[ \n]/)
     lessonText.splice(lessonText.length - 1, 1)
+
+    if (lessonText.length > 50) {
+        $('.text-container').css('height', '300px')
+        $('.lesson-text').css('font-size', '24px')
+    }
 
     let inputArray = []
     let disableBackspace = {{ $course_disable_backspace }}
@@ -99,11 +104,23 @@
         })
     }
 
-
+    $(document).ready(()=> {
+        time = 0
+        slowdown_words_count = 0
+        setInterval(() => {
+            time++
+            console.log(time)
+            if(time === <?= $max_slowdown; ?>) {
+                slowdown_words_count += 1
+                console.log("get")
+            }
+        }, 1000);
+    })
     $('#input-text').on('keyup', function(e) {
         var code = e.key;
         if(code==="Enter") e.preventDefault();
         if(code===" ") {
+        time = 0
         correctValue = []
         inCorrectValue = []
         textValue = $(this).val()
@@ -122,6 +139,7 @@
                 }
             } 
      
+        slowdown = ((slowdown_words_count * 100) / lessonText.length).toFixed(2)
         totalWordType = correctValue.length + inCorrectValue.length
         timeToSecond = $('.countdown').html()
         timeArray = timeToSecond.split(":")
@@ -137,7 +155,8 @@
         minutes = secondsToMinutes.toFixed(2)
         correctWords = correctValue.length
         incorrectWords = inCorrectValue.length
-
+        console.log(inCorrectValue)
+        let error_words = inCorrectValue.join(", ")
         if (lessonText.length === totalWordType) {
             // window.location = '/student/lessons'
             $.ajax({
@@ -146,10 +165,13 @@
                 lesson_id: $('#lesson_id').val(),
                 total_words: totalWords.toString(),
                 minutes: minutes.toString(),
+                duration: <?= $course_duration; ?>,
                 correct_words: correctWords.toString(),
                 incorrect_words: incorrectWords.toString(),
+                error_words: error_words,
                 wpm: wpm,
                 accuracy: accuracy,
+                slowdown: slowdown,
                 overall_rating: '-'
             },
             method: 'POST',
@@ -163,7 +185,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Result',
-                    text: `${wpm} WPM - ${accuracy}% Accuracy`,
+                    text: `${wpm} WPM - ${accuracy}% Accuracy - ${minutes} Minutes  - ${slowdown} % Slowdown`,
                 }).then(function() {
                     window.location = '/student/statics/' + {{ $lesson_id }}
                 });
@@ -195,19 +217,30 @@
         ++seconds;
         minutes = (seconds > 59) ? ++minutes : minutes;
         // if (minutes < 0) clearInterval(interval);
-
-        if (minutes == <?= $course_duration; ?>) {
+        let timeUpSeconds = seconds > 59 ? 0 : seconds
+        let timeUp = (minutes * 60) + timeUpSeconds
+        let courseTimeUp = <?= $course_duration; ?> * 60
+        parseInt(timeUp)
+        parseInt(courseTimeUp)
+        if (timeUp == courseTimeUp) {
             console.log("===" + this.totalWords)
             console.log(this.correctValue)
             clearInterval(interval);
+            if (wpm === 0 ) {
+                slowdown = 0
+            } else {
+                slowdown = ((slowdown_words_count * 100) / lessonText.length).toFixed(2)
+            }
             $.ajax({
             url: '/student/tests/result',
             data: {
                 lesson_id: $('#lesson_id').val(),
                 total_words: totalWords.toString(),
-                minutes: minutes.toString(),
+                minutes: <?= $course_duration; ?>,
+                duration: <?= $course_duration; ?>,
                 correct_words: correctWords.toString(),
                 incorrect_words: incorrectWords.toString(),
+                error_words: null,
                 wpm: wpm,
                 accuracy: accuracy,
                 overall_rating: '-'
@@ -223,7 +256,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Result',
-                    text: `${wpm} WPM - ${accuracy}% Accuracy`,
+                    text: `${wpm} WPM - ${accuracy}% Accuracy - ${<?= $course_duration; ?>} Minutes  - ${slowdown} % Slowdown`,
                 }).then(function() {
                     window.location = '/student/statics/' + {{ $lesson_id }}
                 });

@@ -24,6 +24,8 @@
        <div class="card">
          <div class="card-header">
            <h3 class="card-title">Section Table</h3>
+           <br>
+            <a href="/admin/courses/" class="btn btn-warning">&larr; Back</a>
          </div>
          <!-- /.card-header -->
          <div class="card-body">
@@ -87,7 +89,8 @@
           },
           success : () => {
             msg('success', 'Section has been added!')
-            window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
+            // window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
+            location.reload();
           },
           error: (error) => {
             msg('error', 'Failed to add the section!')
@@ -115,7 +118,8 @@
           },
           success : () => {
             msg('success', 'Section has been updated!')
-            window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
+            // window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
+            location.reload();
           },
           error: (error) => {
           msg('error', 'Failed to update the section!')

@@ -35,15 +35,15 @@
                             <label for="exampleInputEmail1">Phone</label>
                             <input type="text" class="form-control mb-2" name="phone" placeholder="Enter Phone" required>     
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="text" class="form-control mb-2" name="email" placeholder="Enter Email" required>     
+                            <input type="email" class="form-control mb-2" name="email" placeholder="Enter Email" required>     
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" class="form-control mb-2" name="username" placeholder="Enter Username" required>
+                            <input type="text" pattern="[a-z0-9_\.]+" autocomplete="off" class="form-control mb-2" name="username" placeholder="Enter Username" required>
                             <label for="exampleInputEmail1">Password</label>
-                            <input type="password" class="form-control mb-2" name="password" placeholder="Enter Password" required>
+                            <input type="password" autocomplete="off" class="form-control mb-2" name="password" placeholder="Enter Password" required>
                             {{-- <label for="exampleInputEmail1" class="mt-2">Confirmation Password</label>
                             <input type="password" class="form-control mb-2" name="conf_password" placeholder="Enter Confirmation" required> --}}
                             <div class="form-group mt-3">
@@ -97,7 +97,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Form Add User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Form Edit User</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -130,15 +130,15 @@
                             <label for="exampleInputEmail1">Phone</label>
                             <input type="text" class="form-control mb-2" id="phone" name="phone" placeholder="Enter Phone" required>     
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="text" class="form-control mb-2" id="email" name="email" placeholder="Enter Email" required>     
+                            <input type="email" class="form-control mb-2" id="email" name="email" placeholder="Enter Email" required>     
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" class="form-control mb-2" id="username" name="username" placeholder="Enter Username" required>
+                            <input type="text" pattern="[a-z0-9_\.]+" autocomplete="off" class="form-control mb-2" id="username" name="username" placeholder="Enter Username" required>
                             <label for="exampleInputEmail1">Password</label>
-                            <input type="password" class="form-control mb-2" id="password" name="password" placeholder="Enter Password" required>
+                            <input type="password" autocomplete="off" class="form-control mb-2" id="password" name="password" placeholder="Enter Password" required>
                             {{-- <label for="exampleInputEmail1" class="mt-2">Confirmation Password</label>
                             <input type="password" class="form-control mb-2" id="conf_password" name="conf_password" placeholder="Enter Confirmation" required> --}}
                             <div class="form-group mt-3">

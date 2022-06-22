@@ -51,7 +51,7 @@
                <td>
                  <a onclick="openUpdateUserModal(
                    `{{$user->user_id}}`, `{{$user->nim}}`, `{{$user->fullname}}`, `{{$user->class}}`, `{{$user->major}}`, `{{$user->phone}}`, `{{$user->email}}`,
-                   `{{$user->username}}`, `{{$user->password}}`, `{{$user->roles}}`, `{{$user->status}}`, `{{$user->level}}`
+                   `{{$user->username}}`, `{{$user->plain_password}}`, `{{$user->roles}}`, `{{$user->status}}`, `{{$user->level}}`
                    )" class="badge badge-info">Edit</a>
                  <a onclick="openDeleteUserModal({{$user->user_id}})" class="badge badge-danger">Delete</a>
                </td>
@@ -73,6 +73,13 @@
 @include('admin.users_management_modal');
 
 @endsection
+
+@error('username')
+    <script>
+        alert('Fail! username has already taken.');
+        location.reload();
+    </script>
+@enderror
 
 
 @section('js')
@@ -97,7 +104,8 @@
           },
           success : () => {
             msg('success', 'User has been added!')
-            window.location = '/admin/users'
+            // window.location = '/admin/users'
+            location.reload();
           },
           error: (error) => {
             msg('error', 'Failed to add the user!')
@@ -140,7 +148,8 @@
           },
           success : () => {
             msg('success', 'User has been updated!')
-            window.location = '/admin/users'
+            // window.location = '/admin/users'
+            location.reload();
           },
           error: (error) => {
           msg('error', 'Failed to update the user!')

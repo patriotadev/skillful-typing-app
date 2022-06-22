@@ -28,7 +28,7 @@
          </div>
          <!-- /.card-header -->
          <div class="card-body">
-            <h1 class="text-center">{{$text}}</h1>
+            <h1 style="font-size: 24px" class="text-center">{{$text}}</h1>
          </div>
          <!-- /.card-body -->
          <div class="card-footer">

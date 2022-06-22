@@ -23,6 +23,8 @@
        <div class="card">
          <div class="card-header">
            <h3 class="card-title">Students Table</h3>
+           <br>
+            <a href="/admin/class/" class="btn btn-warning">&larr; Back</a>
          </div>
          <!-- /.card-header -->
          <div class="card-body">
@@ -45,7 +47,7 @@
                   <td>{{ $student->email }}</td>
                   <td>
                     <a href="/admin/class/{{$class_id}}/students/{{$student->user_id}}" class="badge badge-primary">View</a>
-                    <a onclick="openUpdateClassModal(`{{$student->user_id}}`)" class="badge badge-info">Overall Result</a>
+                    <a href="/admin/class/{{$class_id}}/students/{{$student->user_id}}/overall" class="badge badge-info">Overall Result</a>
                   </td>
                 </tr>
                 @endforeach

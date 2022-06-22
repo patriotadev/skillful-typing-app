@@ -84,16 +84,31 @@
                 </select>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Speed isn't less than</label>
-              <input id="min_speed" type="number" class="form-control" name="min_speed" placeholder="WPM">
+              <label>Speed isn't less than</label>
+              <div class="input-group">
+                <input id="min_speed" type="number" class="form-control" name="min_speed" placeholder="WPM">
+                <div class="input-group-append">
+                  <span class="input-group-text"> WPM </span>
+                </div>
+              </div>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Error aren't more than</label>
-              <input id="max_error" type="number" class="form-control" name="max_error" placeholder="Words">
+              <label for="exampleInputEmail1">Slowdown aren't more than</label>
+              <div class="input-group">
+                <input id="max_slowdown" min="1" type="number" class="form-control" name="max_slowdown" placeholder="Seconds">
+                <div class="input-group-append">
+                  <span class="input-group-text"> Seconds </span>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Lesson Duration</label>
-              <input id="max_duration" type="number" class="form-control" name="max_duration" placeholder="Minutes">
+              <div class="input-group">
+                <input id="max_duration" type="number" step=".01" class="form-control" name="max_duration" placeholder="Minutes">
+                <div class="input-group-append">
+                  <span class="input-group-text"> Minutes </span>
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Backspace Key</label>

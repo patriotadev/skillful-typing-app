@@ -24,6 +24,8 @@
        <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Student Statics</h3>
+                <br>
+            <a href="/admin/class/{{$class_id}}/students/" class="btn btn-warning">&larr; Back</a>
             </div>
             <div class="card-body">
               <form action="/admin/class/{{$class_id}}/students/{{$student_id}}" method="post">
@@ -36,49 +38,36 @@
                 @endisset
                 <div class="container">
                     <div class="row">
-                        <div class="col">
-                          <div class="form-group mt-3">
-                            <label for="exampleFormControlSelect1">Courses</label>
-                            <select class="form-control" id="course" name="course" required>
-                              {{-- <option value=""> -- Courses --</option> --}}
-                                @foreach ($courses as $course) 
-                                <option value="{{ $course->course_id }}">{{ $course->course_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlSelect1">Sections</label>
-                                <select class="form-control" id="section" name="section" required>
-                                    {{-- <option value="">-- Section --</option> --}}
-                                    @foreach ($sections as $section) 
-                                    <option value="{{ $section->section_id }}">{{ $section->section_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlSelect1">Lessons</label>
-                                <select class="form-control" id="lesson" name="lesson" required>
-                                    <option value="">-- Lesson --</option>
-                                    @foreach ($lessons as $lesson) 
-                                    <option value="{{ $lesson->lesson_id }}">{{ $lesson->lesson_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col mt-5">
-                          <button type="submit" class="btn btn-info">Search</button>
-                        </div>
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <select class="form-control" type="radio" name="lesson" id="flexRadioDefault2" required>
+                          <option value="">-- Lessons --</option>
+                          @foreach ($lessons as $lesson)
+                          <option value="{{$lesson->lesson_id}}">
+                            {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
+                            {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
+                            {{ $lesson->lesson_name }}
+                          </option>
+                        @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <button type="submit" class="btn btn-info">Search</button>
+                    </div>
                     </div>
                     @isset($message)
                     <div class="row">
                       <span>{{ $message }}</span>
-                    </div>      
+                    </div>
                     @endisset
-                    @isset($result) 
+                    @isset($result)
+                    <div class="row ml-2 mt-5">
+                      <span class="font-weight-bold">Error Overview</span>
+                    </div> 
+                    <div class="row ml-2 mt-2">
+                      <p>{{ $result->error_words != null ? $result->error_words : null }}</p>
+                    </div> 
                     <div class="row ml-2 mt-5">
                       <div>
                         <h4>{{ $result->wpm }} WPM - {{ $result->accuracy }}% Accuracy</h4>
@@ -201,7 +190,7 @@
   };
   var doughnutPieData = {
     datasets: [{
-      data: [<?= isset($result) ? $result->accuracy : 0; ?>, 100],
+      data: [<?= isset($result) ? $result->accuracy : 0; ?>, <?= isset($result) ? $result->slowdown : 0; ?>],
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',
@@ -223,7 +212,7 @@
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
       'Accuracy',
-      'Total',
+      'Slowdown',
     ]
   };
   var doughnutPieOptions = {

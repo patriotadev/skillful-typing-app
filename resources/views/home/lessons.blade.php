@@ -59,7 +59,7 @@
                         <select class="form-control" onchange="showConfigure()" name="lesson" id="flexRadioDefault2" required>
                           <option value="">-- Lessons --</option>
                           @foreach ($lessons as $lesson)
-                            <option backspace={{App\Models\Course::where('course_id', $lesson->course_id)->first()->disable_backspace}} duration={{ App\Models\Course::where('course_id', $lesson->course_id)->first()->max_duration}} allow="{{ App\Models\Course::where('course_id', $lesson->course_id)->first()->allow_configure }}" value="{{$lesson->lesson_id}}">
+                            <option slowdown={{App\Models\Course::where('course_id', $lesson->course_id)->first()->max_slowdown}} backspace={{App\Models\Course::where('course_id', $lesson->course_id)->first()->disable_backspace}} duration={{ App\Models\Course::where('course_id', $lesson->course_id)->first()->max_duration}} allow="{{ App\Models\Course::where('course_id', $lesson->course_id)->first()->allow_configure }}" value="{{$lesson->lesson_id}}">
                             {{ App\Models\Course::where('course_id', $lesson->course_id)->first()->course_name }},
                             {{ App\Models\Section::where('section_id', $lesson->section_id)->first()->section_name }},
                             {{ $lesson->lesson_name }}
@@ -99,11 +99,14 @@
         var option = $('option:selected').attr('allow');
         var duration = $('option:selected').attr('duration');
         var backspace = $('option:selected').attr('backspace');
+        var slowdown = $('option:selected').attr('slowdown');
         var id = $('option:selected').val();
 
         $('#modal-configure-course #lesson_id').val(id)
         $('#modal-configure-course #max_duration').val(duration)
         $('#modal-configure-course #disable_backspace').val(backspace)
+        $('#modal-configure-course #max_slowdown').val(slowdown)
+
 
         if (option !== "0") {
           $('#setting-btn').removeClass('invisible')
