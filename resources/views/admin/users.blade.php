@@ -77,7 +77,7 @@
 @error('username')
     <script>
         alert('Fail! username has already taken.');
-        location.reload();
+        document.location.reload(true);
     </script>
 @enderror
 
@@ -105,7 +105,7 @@
           success : () => {
             msg('success', 'User has been added!')
             // window.location = '/admin/users'
-            location.reload();
+            document.location.reload(true)
           },
           error: (error) => {
             msg('error', 'Failed to add the user!')
@@ -149,7 +149,7 @@
           success : () => {
             msg('success', 'User has been updated!')
             // window.location = '/admin/users'
-            location.reload();
+            document.location.reload(true);
           },
           error: (error) => {
           msg('error', 'Failed to update the user!')
@@ -179,7 +179,7 @@
                         text: 'User has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true);
                   });
                 },
                 error: function() {
@@ -188,7 +188,7 @@
                         text: 'Failed to remove the user!',
                         icon: 'danger',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true);
                   });
                 }
               })

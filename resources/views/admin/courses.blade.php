@@ -118,7 +118,7 @@
           success : () => {
             msg('success', 'Course setting has been updated!')
             // window.location = '/admin/courses'
-            location.reload()
+            document.location.reload(true)
           },
           error: (error) => {
           msg('error', 'Failed to update the course setting!')
@@ -148,7 +148,7 @@
           success : () => {
             msg('success', 'Course has been added!')
             // window.location = '/admin/courses'
-            location.reload()
+            document.location.reload(true)
           },
           error: (error) => {
           msg('error', 'Failed to add the course!')
@@ -177,7 +177,7 @@
           success : () => {
             msg('success', 'Course has been updated!')
             // window.location = '/admin/courses'
-            location.reload()
+            document.location.reload(true)
           },
           error: (error) => {
             msg('error', 'Failed to update the course!')
@@ -207,7 +207,7 @@
                         text: 'Course has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)   
                   });
                 },
                 error: function() {
@@ -216,7 +216,7 @@
                         text: 'Failed to remove the course!',
                         icon: 'danger',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)
                   });
                 }
               })

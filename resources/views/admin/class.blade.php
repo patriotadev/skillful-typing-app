@@ -87,7 +87,7 @@
           success : () => {
             msg('success', 'Class has been added!')
             // window.location = '/admin/class'
-            location.reload();
+            document.location.reload(true);
           },
           error: (error) => {
             msg('error', 'Failed to add the class!')
@@ -122,7 +122,7 @@
           success : () => {
             msg('success', 'Class has been updated!')
             // window.location = '/admin/class'
-            location.reload();
+            document.location.reload(true);
           },
           error: (error) => {
           msg('error', 'Failed to update the class!')
@@ -152,7 +152,7 @@
                         text: 'Class has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true);
                   });
                 },
                 error: function() {
@@ -161,7 +161,7 @@
                         text: 'Failed to remove the class!',
                         icon: 'danger',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true);
                   });
                 }
               })

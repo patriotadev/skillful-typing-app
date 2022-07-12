@@ -131,7 +131,7 @@
                         text: 'Lesson has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)
                   });
                 },
                 error: function() {
@@ -140,7 +140,7 @@
                         text: 'Failed to remove the lesson!',
                         icon: 'danger',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)
                   });
                 }
               })

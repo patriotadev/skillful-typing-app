@@ -90,7 +90,7 @@
           success : () => {
             msg('success', 'Section has been added!')
             // window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
-            location.reload();
+            document.location.reload(true)
           },
           error: (error) => {
             msg('error', 'Failed to add the section!')
@@ -119,7 +119,7 @@
           success : () => {
             msg('success', 'Section has been updated!')
             // window.location = '/admin/courses/' + <?= $course_id; ?> + '/sections'
-            location.reload();
+            document.location.reload(true)
           },
           error: (error) => {
           msg('error', 'Failed to update the section!')
@@ -149,7 +149,7 @@
                         text: 'Section has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)
                   });
                 },
                 error: function() {
@@ -158,7 +158,7 @@
                         text: 'Failed to remove the section!',
                         icon: 'danger',
                       }).then(function() {
-                    location.reload();
+                    document.location.reload(true)
                   });
                 }
               })
