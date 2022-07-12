@@ -22,7 +22,6 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           {{-- Login Admin --}}
-
           @if (session('hasLogin'))
             @if (session('user_roles') == 'Admin')
             <li class="nav-item">
@@ -53,6 +52,14 @@
 
             {{-- Login Student --}}
             <li class="nav-item">
+              <a href="/guide/typing" class="nav-link">
+                <i class="nav-icon fas fa-info-circle"></i>
+                <p>
+                  Typing Guide
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="/student/lessons" class="nav-link">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
@@ -79,6 +86,14 @@
             @endif
 
           @else
+          <li class="nav-item">
+            <a href="/guide/typing" class="nav-link">
+              <i class="nav-icon fas fa-info-circle"></i>
+              <p>
+                Typing Guide
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="/" class="nav-link">
               <i class="nav-icon fas fa-book"></i>

@@ -62,7 +62,7 @@
                     </div> 
                     <div class="row ml-2 mt-5">
                       <div>
-                        <h4>{{ $result->wpm }} WPM - {{ $result->accuracy }}% Accuracy</h4>
+                        <h4>{{ $result->wpm }} WPM - {{ $result->accuracy }}% Accuracy - {{ $result->minutes }} Minutes</h4>
                       </div>
                     </div>
                     <div class="row mt-3">

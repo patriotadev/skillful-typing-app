@@ -96,4 +96,5 @@
   toLogout = () => {
     window.location = '/logout'
   }
+
 </script>

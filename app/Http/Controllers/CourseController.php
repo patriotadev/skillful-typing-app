@@ -67,11 +67,16 @@ class CourseController extends Controller
         $course_id = $request->course_id;
         $data = [
             'course_type' => $request->course_type,
-            'min_speed' => $request->min_speed,
             'max_slowdown' => $request->max_slowdown,
             'max_duration' => $request->max_duration,
             'disable_backspace' => $request->disable_backspace,
-            'allow_configure' => $request->allow_configure
+            'allow_configure' => $request->allow_configure,
+            'min_speed_a' => $request->min_speed_a,
+            'min_accuracy_a' => $request->min_accuracy_a,
+            'min_speed_b' => $request->min_speed_b,
+            'min_accuracy_b' => $request->min_accuracy_b,
+            'min_speed_c' => $request->min_speed_c,
+            'min_accuracy_c' => $request->min_accuracy_c,
         ];
 
         Course::where('course_id', $course_id)->update($data);

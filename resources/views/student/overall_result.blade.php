@@ -49,7 +49,20 @@
               </form>
                @isset($lessons_completed)
                <div class="row mt-5">
-                 <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
+                <div class="col">
+                  <h5 class="ml-5"># {{ $selected_course->course_name }}</h5>
+                </div>
+                <div class="col">
+                  @if ($avg_speed >= $selected_course->min_speed_a && $avg_accuracy >= $selected_course->min_accuracy_a)
+                    <h5 class="ml-5">Score : A</h5>
+                  @elseif($avg_speed >= $selected_course->min_speed_b && $avg_accuracy >= $selected_course->min_accuracy_b)
+                    <h5 class="ml-5">Score : B</h5>
+                  @elseif($avg_speed >= $selected_course->min_speed_c && $avg_accuracy >= $selected_course->min_accuracy_c)
+                    <h5 class="ml-5">Score : C</h5>
+                  @else
+                    <h5 class="ml-5">Score : N/A</h5>
+                  @endif
+                </div>
                  <canvas id="lineChart"></canvas>
                 </div>
                 <div class="row mt-4">

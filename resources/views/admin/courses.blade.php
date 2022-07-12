@@ -44,7 +44,11 @@
                   <td>{{ $course->course_name }}</td>
                   <td>{{ $course->course_type }}</td>
                   <td>
-                    <a onclick="openSettingCourseModal(`{{$course->course_id}}`, `{{$course->course_type}}`, `{{$course->min_speed}}`, `{{$course->max_slowdown}}`, `{{$course->max_duration}}`, `{{$course->disable_backspace}}`, `{{$course->allow_configure}}`)" class="badge badge-warning">Setting</a>
+                    <a onclick="openSettingCourseModal(
+                      `{{$course->course_id}}`, `{{$course->course_type}}`, `{{$course->min_speed}}`, `{{$course->max_slowdown}}`, 
+                      `{{$course->max_duration}}`, `{{$course->disable_backspace}}`, `{{$course->allow_configure}}`,
+                      `{{$course->min_speed_a}}`, `{{$course->min_accuracy_a}}`, `{{$course->min_speed_b}}`, `{{$course->min_accuracy_b}}`,
+                      `{{$course->min_speed_c}}`, `{{$course->min_accuracy_c}}`)" class="badge badge-warning">Setting</a>
                     <a href="/admin/courses/{{$course->course_id}}/sections" class="badge badge-primary">View</a>
                     <a onclick="openUpdateCourseModal(`{{$course->course_id}}`, `{{$course->course_name}}`)" class="badge badge-info">Edit</a>
                     <a onclick="openDeleteCourseModal({{$course->course_id}})" class="badge badge-danger">Delete</a>
@@ -72,7 +76,7 @@
 @section('js')
     <script type="text/javascript">
 
-      const openSettingCourseModal = (id, type, wpm, slowdown, duration, backspace, configure) => {
+      const openSettingCourseModal = (id, type, wpm, slowdown, duration, backspace, configure, min_speed_a, min_accuracy_a, min_speed_b, min_accuracy_b, min_speed_c, min_accuracy_c) => {
         $('#modal-setting-course').modal('show')
         $('#modal-setting-course #course_id').val(id)
         $('#modal-setting-course #course_type').val(type)
@@ -80,6 +84,12 @@
         $('#modal-setting-course #allow_configure').val(configure)
         $('#modal-setting-course #max_duration').val(duration)
         $('#modal-setting-course #max_slowdown').val(slowdown)
+        $('#modal-setting-course #min_speed_a').val(min_speed_a)
+        $('#modal-setting-course #min_accuracy_a').val(min_accuracy_a)
+        $('#modal-setting-course #min_speed_b').val(min_speed_b)
+        $('#modal-setting-course #min_accuracy_b').val(min_accuracy_b)
+        $('#modal-setting-course #min_speed_c').val(min_speed_c)
+        $('#modal-setting-course #min_accuracy_c').val(min_accuracy_c)
 
         if (wpm !== null) {
           $('#modal-setting-course #min_speed').val(wpm)

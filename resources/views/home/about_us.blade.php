@@ -75,8 +75,8 @@
         font-style: italic;
     }
 </style>
+
 @endsection
 
-@section('js')
-    
+@section('js')    
 @endsection

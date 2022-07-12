@@ -126,6 +126,34 @@
                 <option value="0">Don't Allow</option> 
               </select>
             </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Course Score (WPM | Accuracy)</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">A</span>
+                </div>
+                <input type="number" min="0" id="min_speed_a" name="min_speed_a" class="form-control" placeholder="Minimum WPM / Speed">
+                <input type="number" min="0" id="min_accuracy_a" name="min_accuracy_a" class="form-control" placeholder="Minimum Accuracy">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">B</span>
+                </div>
+                <input type="number" min="0" id="min_speed_b" name="min_speed_b" class="form-control" placeholder="Minimum WPM / Speed">
+                <input type="number" min="0" id="min_accuracy_b" name="min_accuracy_b" class="form-control" placeholder="Minimum Accuracy">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">C</span>
+                </div>
+                <input type="number" min="0" id="min_speed_c" name="min_speed_c" class="form-control" placeholder="Minimum WPM / Speed">
+                <input type="number" min="0" id="min_accuracy_c" name="min_accuracy_c" class="form-control" placeholder="Minimum Accuracy">
+              </div>
+            </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save</button>
