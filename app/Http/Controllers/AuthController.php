@@ -45,7 +45,7 @@ class AuthController extends Controller
                 if ($user->roles == 'Admin') {
                     return redirect('/admin/courses');
                 }
-                return redirect('/student/lessons');
+                return redirect('/guide/typing');
             } else {
                 // Password salah
                 $request->session()->flash('fail_pass', 'Incorrect Password.');

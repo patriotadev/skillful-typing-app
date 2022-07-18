@@ -63,7 +63,7 @@
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                     <div class="d-flex justify-content-end mt-3">
-                      <a href="/">Continue as guest &rarr;</a>
+                      <a href="/guide/typing">Continue as guest &rarr;</a>
                     </div>
                 </form>
                 </div>
