@@ -239,8 +239,8 @@
 
 @section('js')
 <script>
-    $('#keyboard').keyboard({ layout: 'qwerty' }).addTyping({
-        showTyping : true
+    $('#keyboard').keyboard({ layout: 'qwerty', userClosed: true }).addTyping({
+        showTyping : true,
     });
 </script>
 @endsection
