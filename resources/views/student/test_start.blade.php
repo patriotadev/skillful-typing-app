@@ -222,9 +222,7 @@
         let courseTimeUp = <?= $course_duration; ?> * 60
         parseInt(timeUp)
         parseInt(courseTimeUp)
-        if (timeUp == courseTimeUp) {
-            console.log("===" + this.totalWords)
-            console.log(this.correctValue)
+        if (timeUp === courseTimeUp) {
             clearInterval(interval);
             if (wpm === 0 ) {
                 slowdown = 0
@@ -243,6 +241,7 @@
                 error_words: null,
                 wpm: wpm,
                 accuracy: accuracy,
+                slowdown: slowdown,
                 overall_rating: '-'
             },
             method: 'POST',
