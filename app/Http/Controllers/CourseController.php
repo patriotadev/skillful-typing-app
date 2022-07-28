@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CourseController extends Controller
 {
@@ -41,6 +42,7 @@ class CourseController extends Controller
             'course_type' => $request->course_type
         ];
         Course::create($data);
+        return Redirect::back();
     }
 
     public function update(Request $request, Course $course)
@@ -52,6 +54,7 @@ class CourseController extends Controller
         ];
 
         Course::where('course_id', $id)->update($data);
+        return Redirect::back();
     }
 
     public function delete($id)

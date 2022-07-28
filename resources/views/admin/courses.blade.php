@@ -116,9 +116,16 @@
             Swal.showLoading()
           },
           success : () => {
-            msg('success', 'Course setting has been updated!')
+            // msg('success', 'Course setting has been updated!')
             // window.location = '/admin/courses'
-            document.location.reload(true)
+            Swal.fire({
+                  title: 'Success!',
+                  text: 'Course setting has been updated!',
+                  icon: 'success',
+                }).then(function() {
+              document.location.reload(true)
+            });
+            // document.location.reload(true)
           },
           error: (error) => {
           msg('error', 'Failed to update the course setting!')
@@ -207,7 +214,7 @@
                         text: 'Course has been removed!',
                         icon: 'success',
                       }).then(function() {
-                    document.location.reload(true)   
+                    document.location.reload(true)
                   });
                 },
                 error: function() {

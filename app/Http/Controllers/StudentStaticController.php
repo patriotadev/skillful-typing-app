@@ -218,7 +218,7 @@ class StudentStaticController extends Controller
             'no-stop-slow-scripts' => true
         ]);
 
-        return $pdf->download(session('user_name') . '_' . $selectedCourse->course_name);
+        return $pdf->download(session('user_name') . '_' . $selectedCourse->course_name . '.pdf');
     }
 
 

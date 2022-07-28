@@ -157,7 +157,7 @@
 
         minutesToSeconds = (getMinutes * 60) + getSeconds
         secondsToMinutes = minutesToSeconds / 60;
-        wpm = (totalWordType / secondsToMinutes).toFixed(2)
+        wpm = (totalWordType / secondsToMinutes.toFixed(2)).toFixed(2)
         minutes = secondsToMinutes.toFixed(2)
         accuracy = ((correctValue.length / totalWordType) * 100).toFixed(2)
 
@@ -189,6 +189,7 @@
         parseInt(timeUp)
         parseInt(courseTimeUp)
         if (timeUp == courseTimeUp) {
+            wpm = (totalWordType / <?= $course_duration; ?>).toFixed(2)
             clearInterval(interval);
             if (wpm === 0 ) {
                 slowdown = 0

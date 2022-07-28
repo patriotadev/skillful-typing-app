@@ -133,6 +133,15 @@ class CurrentLessonController extends Controller
     public function getHomeCurrentLesson()
     {
 
+        if (session('user_roles') == 'Admin') {
+            return redirect('/admin/courses');
+        }
+
+        if (session('user_roles') == 'Student') {
+            return redirect('/guide/typing');
+        }
+
+
         $courses = Course::where('course_type', 'Lesson');
         $sections =  Section::whereIn('course_id', $courses->pluck('course_id')->toArray());
         $lessons = Lesson::whereIn('course_id', $courses->pluck('course_id')->toArray());

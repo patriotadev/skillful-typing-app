@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class SectionController extends Controller
 {
@@ -31,6 +32,7 @@ class SectionController extends Controller
             'course_id' => $request->course_id
         ];
         Section::create($data);
+        return Redirect::back();
     }
 
     public function update(Request $request)
@@ -41,6 +43,7 @@ class SectionController extends Controller
         ];
 
         Section::where('section_id', $id)->update($data);
+        return Redirect::back();
     }
 
     public function delete($id)

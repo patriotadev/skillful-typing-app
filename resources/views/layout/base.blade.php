@@ -125,10 +125,6 @@
   width:350,
   timer: 3000,
   timerProgressBar: true,
-  onOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
   })
   function msg(icon,title){
   Toast.fire({ icon, title })

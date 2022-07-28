@@ -35,6 +35,11 @@
                 {{ session('fail_pass') }}
               </div>
               @endif
+              @if (Session::has('add_teacher_success'))
+              <div class="alert alert-success" role="alert">
+                  {{ session('add_teacher_success') }}
+              </div>
+              @endif
               <div class="card mt-5 shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5 bg-dark rounded">
                 <div class="logo d-flex justify-content-center mb-3">

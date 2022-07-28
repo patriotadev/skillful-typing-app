@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Course Type</label>
-              <select class="form-control" id="course_type" name="course_type">
+              <select class="form-control" id="course_type" name="course_type" required>
                   <option value="">-- Select --</option> 
                   <option value="Lesson">Lesson</option> 
                   <option value="Test">Test</option> 
@@ -82,15 +82,6 @@
                     <option value="Lesson">Lesson</option> 
                     <option value="Test">Test</option> 
                 </select>
-            </div>
-            <div class="form-group">
-              <label>Speed isn't less than</label>
-              <div class="input-group">
-                <input id="min_speed" type="number" class="form-control" name="min_speed" placeholder="WPM">
-                <div class="input-group-append">
-                  <span class="input-group-text"> WPM </span>
-                </div>
-              </div>
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">Slowdown aren't more than</label>

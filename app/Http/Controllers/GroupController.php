@@ -10,6 +10,7 @@ use App\Models\Section;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class GroupController extends Controller
 {
@@ -48,6 +49,7 @@ class GroupController extends Controller
         ];
 
         Group::create($data);
+        return Redirect::back();
     }
 
     public function update(Request $request)
@@ -62,6 +64,7 @@ class GroupController extends Controller
         ];
 
         Group::where('class_id', $id)->update($data);
+        return Redirect::back();
     }
 
     public function delete($id)
@@ -278,6 +281,6 @@ class GroupController extends Controller
             'no-stop-slow-scripts' => true
         ]);
 
-        return $pdf->download($student_name . '_' . $selectedCourse->course_name);
+        return $pdf->download($student_name . '_' . $selectedCourse->course_name . '.pdf');
     }
 }

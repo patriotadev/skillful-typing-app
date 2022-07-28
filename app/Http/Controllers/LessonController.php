@@ -85,6 +85,7 @@ class LessonController extends Controller
 
         Storage::put('public/' . $lesson_file_name, $request->lesson_text);
         Lesson::where('lesson_id', $id)->update($data);
+        return Redirect::back();
     }
 
     public function delete($id)

@@ -10,6 +10,7 @@ use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -51,6 +52,7 @@ class UserController extends Controller
         ];
 
         User::create($data);
+        return Redirect::back();
     }
 
     public function update(Request $request)
@@ -75,6 +77,7 @@ class UserController extends Controller
             'status' => $request->status,
         ];
         User::where('user_id', $request->id)->update($data);
+        return Redirect::back();
     }
 
     public function delete($id)
@@ -144,7 +147,7 @@ class UserController extends Controller
 
         User::create($data);
         $request->session()->flash('add_teacher_success', 'Teacher has been added!');
-        return redirect('/register');
+        return redirect('/login');
     }
 
 
